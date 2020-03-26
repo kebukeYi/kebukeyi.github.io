@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://www.huweihuang.com</loc>
+        <loc>http://yoursite.com</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
     <url>
-        <loc>http://www.huweihuang.com/article/Hashtable%E5%92%8CConcurrentHashMap%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</loc>
+        <loc>http://yoursite.com/article/Hashtable%E5%92%8CConcurrentHashMap%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</loc>
         <lastmod>2020-03-26T10:14:02.171Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -15,7 +15,7 @@
     </url>
 
     <url>
-        <loc>http://www.huweihuang.com/article/HashMap%E5%8E%9F%E7%90%86/</loc>
+        <loc>http://yoursite.com/article/HashMap%E5%8E%9F%E7%90%86/</loc>
         <lastmod>2020-03-26T08:26:34.552Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -23,7 +23,7 @@
     </url>
 
     <url>
-        <loc>http://www.huweihuang.com/article/Http%E4%B8%8EHttps-%E4%B8%80/</loc>
+        <loc>http://yoursite.com/article/Http%E4%B8%8EHttps-%E4%B8%80/</loc>
         <lastmod>2020-03-26T08:24:22.627Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
