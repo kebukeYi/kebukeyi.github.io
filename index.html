@@ -217,7 +217,7 @@
             HashMap原理
         </h2>
         <h3 class="post-subtitle">
-            
+            HashMap
         </h3>
         <div class="post-content-preview">
             HashMap底层原理
@@ -231,8 +231,8 @@
 
 HashMap 默认是16长度。
 hash冲突：不同的对象算出来的数组下标相同。
-存储结构为：数组、链表、红黑树，当解决hash冲突的单向列表长度到达8时，采用红黑树存储。
-hash算法：任何对象都有hashcode，hash值=hashCode^(hashCode&gt;&gt;&gt;16),当......
+存储结构为：数组、链表、红黑树(Jdk1.8)，当解决hash冲突的单向列表长度到达8时，采用红黑树存储。
+hash算法：任何对象都有hashcode，hash值=hashCode^(hashCode&gt;&gt;&......
         </div>
     </a>
     

@@ -92,7 +92,7 @@
                             
                         </div>
                         <h1>HashMap原理</h1>
-                        <h2 class="subheading"></h2>
+                        <h2 class="subheading">HashMap</h2>
                         <span class="meta">
                             Posted by 杨一 on
                             2020-03-26
@@ -223,7 +223,7 @@
 <ol>
 <li>HashMap 默认是16长度。</li>
 <li>hash冲突：不同的对象算出来的数组下标相同。</li>
-<li>存储结构为：数组、链表、红黑树，当解决hash冲突的单向列表长度到达8时，采用红黑树存储。</li>
+<li>存储结构为：数组、链表、红黑树(Jdk1.8)，当解决hash冲突的单向列表长度到达8时，采用红黑树存储。</li>
 <li>hash算法：任何对象都有hashcode，hash值=hashCode^(hashCode&gt;&gt;&gt;16),当右移16位后再与自己做异或运算。</li>
 <li>数组下标：hashCode&amp;（16-1）=hash%16 。</li>
 <li>HashMap扩容：到达3/4时 自动扩容2倍（16*2）。</li>
