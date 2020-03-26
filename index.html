@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -208,6 +208,41 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/">
+        <h2 class="post-title">
+                                 
+            Hashtable和ConcurrentHashMap的线程安全问题
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            ConcurrentHashMap的线程安全问题
+
+
+分段锁思想：每个线程获得的是每个存储单元的锁，每个存储单元下又有很多table，但是每个单元下的table共用同一把锁(Jdk1.8改进了)！当A线程操作0号单元时，获得的0号锁与2号存储单元无关，因此B线程可以操作2号存储单元，提高了代码效率。
+
+在Jdk1.8中，采用更加细化分配锁的方式，性能更能提升。
+123456789101112......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-03-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread">Hashtable ConcurrentHashMap Thread</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -345,11 +380,15 @@ Https传输
     <div class="tags">
         
             
-            <a href="/tags/#Http" title="Http" rel="1">Http</a>
+            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
             
         
             
             <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
+            
+        
+            
+            <a href="/tags/#Http" title="Http" rel="1">Http</a>
             
         
     </div>
@@ -405,6 +444,10 @@ Https传输
     <ul>
       
         <li>
+          <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/">Hashtable和ConcurrentHashMap的线程安全问题</a>
+        </li>
+      
+        <li>
           <a href="/article/HashMap原理/">HashMap原理</a>
         </li>
       
@@ -436,7 +479,7 @@ Https传输
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">3</span></li></ul>
     </div>
 
         <hr>
