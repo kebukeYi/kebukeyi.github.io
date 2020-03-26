@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Tags - Play Code
+          类的加载机制 - Play Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/tags/">
+    <link rel="canonical" href="http://yoursite.com/article/类的加载机制/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -71,8 +71,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/tag.png')
-            /*page*/
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
         
     }
     
@@ -85,10 +85,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Tags</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Hey, this is Tags.</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                            
+                        </div>
+                        <h1>类的加载机制</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 杨一 on
+                            2020-03-26
+                        </span>
                     </div>
                 
 
@@ -191,138 +199,221 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-            <div id='tag_cloud' class="tags">
-                
-                    <a href="#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
-                
-                    <a href="#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
-                
-                    <a href="#Jvm" title="Jvm" rel="2">Jvm</a>
-                
-                    <a href="#Http" title="Http" rel="1">Http</a>
-                
-            </div>
+    <!-- Modify by Yu-Hsuan Yen -->
 
-            <!-- 标签列表 -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Java HashMap">
-                    <span class="tag-text">Java HashMap</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/HashMap原理/">
-                        <h2 class="post-title">
-                            HashMap原理
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                HashMap
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Hashtable ConcurrentHashMap Thread">
-                    <span class="tag-text">Hashtable ConcurrentHashMap Thread</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/">
-                        <h2 class="post-title">
-                            Hashtable和ConcurrentHashMap的线程安全问题
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Jvm">
-                    <span class="tag-text">Jvm</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/类的加载机制/">
-                        <h2 class="post-title">
-                            类的加载机制
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Jvm的内存布局和垃圾回收机制/">
-                        <h2 class="post-title">
-                            Jvm的内存布局和垃圾回收机制
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Http">
-                    <span class="tag-text">Http</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Http与Https-一/">
-                        <h2 class="post-title">
-                            Http与Https(一)
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                <h2 id="类加载机制">类加载机制</h2>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/4375B2B0FB874A909131BFC02553A561/3887" alt=""><br>
+<br></p>
+<h3 id="类加载的生命周期">类加载的生命周期</h3>
+<p>加载：把文件字节流转换虚拟机中的变量<br><br>
+验证：验证是否符合虚拟机的要求<br><br>
+准备：类变量（为static修饰的变量）分配内存，设置初始值，是虚拟机的初始值标准，例如int a=0;<br><br>
+解析：常量池中的引用换为实际值。<br><br>
+初始化：执行Java代码，把static有关的代码块执行一遍。<br><br>
+初始化时机：</p>
+<ul>
+<li>创建类的实例</li>
+<li>访问某个类或接口的静态变量，或者对该静态变量赋值</li>
+<li>调用类的静态方法</li>
+<li>反射</li>
+<li>初始化一个类的子类</li>
+<li>Java虚拟机启动时被表明为启动类的类</li>
+<li>调用ClassLoader类的loadClass方法加载一个类，并不是对类的主动使用，不会导致类的初始化。</li>
+</ul>
+<p>使用：new出实例使用时执行。<br><br>
+卸载：垃圾回收。<br></p>
+<h2 id="加载器">加载器</h2>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/121B130828F94AE58E37918F1CC443E5/3889" alt=""><br>
+其中在开发Java中能够影响的只有加载这一步骤。<br><br>
+类加载器经常用在：部署时的热替换以及类的加密和解密。</p>
+<h2 id="双亲委派模型">双亲委派模型</h2>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/6D03D815801E4464A4D6A47F9EC6FF49/3891" alt=""></p>
+<h3 id="为什么有这个双亲委派模型">为什么有这个双亲委派模型？<br></h3>
+<p>保持一个合适的优先级。<br>
+比如Object这个类，通过层层加载器，最终都是通过根加载器加载的，保证这个Object类在各个程序中是同一个类，因为决定这个类是不是同唯一类，有两个标准：第一：这个类本身；第二：加载这个类的类加载器。如果一个类由不同的类加载器加载，那么对于虚拟机而言就是两个类。</p>
+<h3 id="问题">问题:</h3>
+<p>倘若A加载器和B加载器各自加载业务类，那么这个业务类到底是继承A加载器中的Object?还是B加载器中的Object? 就会导致Jdk最底层程序无法保证。</p>
 
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Jvm的内存布局和垃圾回收机制/" data-toggle="tooltip" data-placement="top" title="Jvm的内存布局和垃圾回收机制">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载机制"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#类加载的生命周期"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#加载器"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x52A0;&#x8F7D;&#x5668;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#双亲委派模型"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么有这个双亲委派模型"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">&#x4E3A;&#x4EC0;&#x4E48;&#x6709;&#x8FD9;&#x4E2A;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;&#xFF1F;<br></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#问题"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">&#x95EE;&#x9898;:</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="undefined" target="_blank">undefined</a></li>
+                    
+                        <li><a href="undefined" target="_blank">undefined</a></li>
+                    
+                        <li><a href="undefined" target="_blank">undefined</a></li>
+                    
+                </ul>
+                
+            </div>
         </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
 
 
     <!-- Footer -->
