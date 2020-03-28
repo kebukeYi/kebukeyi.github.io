@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          类的加载机制 - Play Code
+          计算机原理之原码反码补码 - Play Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/类的加载机制/">
+    <link rel="canonical" href="http://yoursite.com/article/计算机原理之原码反码补码/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                              <a class="tag" href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java">计算机 原码 反码 补码 Java</a>
                             
                         </div>
-                        <h1>类的加载机制</h1>
+                        <h1>计算机原理之原码反码补码</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-03-26
+                            2020-03-28
                         </span>
                     </div>
                 
@@ -212,38 +212,52 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="类加载机制">类加载机制</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/4375B2B0FB874A909131BFC02553A561/3887" alt=""><br>
-<br></p>
-<h3 id="类加载的生命周期">类加载的生命周期</h3>
-<p>加载：把文件字节流转换虚拟机中的变量<br><br>
-验证：验证是否符合虚拟机的要求<br><br>
-准备：类变量（为static修饰的变量）分配内存，设置初始值，是虚拟机的初始值标准，例如int a=0;<br><br>
-解析：常量池中的引用换为实际值。<br><br>
-初始化：执行Java代码，把static有关的代码块执行一遍。<br><br>
-初始化时机：</p>
-<ul>
-<li>创建类的实例</li>
-<li>访问某个类或接口的静态变量，或者对该静态变量赋值</li>
-<li>调用类的静态方法</li>
-<li>反射</li>
-<li>初始化一个类的子类</li>
-<li>Java虚拟机启动时被表明为启动类的类</li>
-<li>调用ClassLoader类的loadClass方法加载一个类，并不是对类的主动使用，不会导致类的初始化。</li>
-</ul>
-<p>使用：new出实例使用时执行。<br><br>
-卸载：垃圾回收。<br></p>
-<h2 id="加载器">加载器</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/121B130828F94AE58E37918F1CC443E5/3889" alt=""><br>
-其中在开发Java中能够影响的只有加载这一步骤。<br><br>
-类加载器经常用在：部署时的热替换以及类的加密和解密。</p>
-<h2 id="双亲委派模型">双亲委派模型</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/6D03D815801E4464A4D6A47F9EC6FF49/3891" alt=""></p>
-<h3 id="为什么有这个双亲委派模型">为什么有这个双亲委派模型？<br></h3>
-<p>保持一个合适的优先级。<br>
-比如Object这个类，通过层层加载器，最终都是通过根加载器加载的，保证这个Object类在各个程序中是同一个类，因为决定这个类是不是同唯一类，有两个标准：第一：这个类本身；第二：加载这个类的类加载器。如果一个类由不同的类加载器加载，那么对于虚拟机而言就是两个类。</p>
-<h3 id="问题">问题:</h3>
-<p>倘若A加载器和B加载器各自加载业务类，那么这个业务类到底是继承A加载器中的Object?还是B加载器中的Object? 就会导致Jdk最底层程序无法保证。</p>
+                <h2 id="原码">原码</h2>
+<p>原码：最高位为符号位，其余各位为数值本身的绝对值。<br><br>
+正数的原码是其绝对值。<br><br>
+负数的原码即是其绝对值的原码再将其第一位变为1。</p>
+<h2 id="反码">反码</h2>
+<p>正数：反码与原码相同。<br><br>
+负数：符号位为1，其余位对原码取反。<br></p>
+<h2 id="补码">补码</h2>
+<p>计算机内存存储整数都是采用整数的补码形式表示，最高位直接表示是 符号位：0 表示正数 1表示负数。<br><br>
+比如Java的byte类型存储(8位)：最大值2^7-1 ：0111 1111; 最小值是-2^7 : 1111 1111<br><br>
+正数的补码：为这个数的2进制码，例如3：0000 0101<br><br>
+负数的补码：为这个负数的绝对值的2进制码，取反加1，</p>
+<blockquote>
+<p>例如－3：</p>
+</blockquote>
+<p>3的2进制码取反为: 0000 0011 -&gt; 1111 1100<br><br>
+加1：1111 1101<br><br>
+所以-3的补码是：1111 1101<br></p>
+<blockquote>
+<p>从内存中取出补码计算这个数：</p>
+</blockquote>
+<ol>
+<li>
+<p>从一个正数的补码计算这个正数。<br>
+例如0000 0101：因为符号位是0，所以是正数，所以直接计算这个正数就行了，所以结果是 3</p>
+</li>
+<li>
+<p>从一个负数的补码计算这个负数。例如－3：1111 1101：<br>
+因为符号位（最高位）为1，所以表示这个数是负数<br>
+用补码取反加1为这个负数的绝对值整数值：0000 0010 + 1 =&gt; 0000 0011 =&gt; 3<br>
+所以1111 1101的值为-3</p>
+</li>
+</ol>
+<blockquote>
+<p>例如:<br><br>
+byte b = 127;<br><br>
+b = (byte) (b + 1);<br><br>
+最后b的值是多少？<br></p>
+</blockquote>
+<p>127的二进制为: 0111 1111<br><br>
+127+1则为：0111 1111 + 1 = 1000 0000<br><br>
+所以当取出计算1000 0000的值时，<br><br>
+最高位为1，所以是负数<br><br>
+取反加1：0111 1111 + 1 = 1000 0000<br><br>
+计算1000 0000的值：128<br><br>
+结果：128的负值，所以为-128，即byte类型的127加1的值为-128<br></p>
 
                 
 
@@ -251,13 +265,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/计算机原理之补码/" data-toggle="tooltip" data-placement="top" title="计算机原理">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/Jvm的内存布局和垃圾回收机制/" data-toggle="tooltip" data-placement="top" title="Jvm的内存布局和垃圾回收机制">Next Post &rarr;</a>
+                            <a href="/article/计算机原理之补码/" data-toggle="tooltip" data-placement="top" title="计算机原理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -313,7 +323,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载机制"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#类加载的生命周期"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#加载器"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x52A0;&#x8F7D;&#x5668;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#双亲委派模型"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么有这个双亲委派模型"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">&#x4E3A;&#x4EC0;&#x4E48;&#x6709;&#x8FD9;&#x4E2A;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;&#xFF1F;<br></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#问题"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">&#x95EE;&#x9898;:</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#原码"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x539F;&#x7801;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#反码"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x53CD;&#x7801;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#补码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">&#x8865;&#x7801;</span></a></li></ol>
         
         </div>
       </aside>
@@ -333,7 +343,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                          <a class="tag" href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java">计算机 原码 反码 补码 Java</a>
                         
                     </div>
                 </section>
