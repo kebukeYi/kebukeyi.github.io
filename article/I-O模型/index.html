@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Jvm的内存布局和垃圾回收机制 - Play Code
+          I/O模型 - Play Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/Jvm的内存布局和垃圾回收机制/">
+    <link rel="canonical" href="http://yoursite.com/article/I-O模型/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                              <a class="tag" href="/tags/#I/O" title="I/O">I/O</a>
                             
                         </div>
-                        <h1>Jvm的内存布局和垃圾回收机制</h1>
+                        <h1>I/O模型</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-03-26
+                            2020-03-30
                         </span>
                     </div>
                 
@@ -212,28 +212,68 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="内存布局">内存布局</h1>
-<h3 id="运行时数据区">运行时数据区</h3>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/195B4EAA6DF54ABAB952822C67B7F113/3872" alt="虚拟机"></p>
-<ol>
-<li>程序计数器：用来控制代码运行行数。</li>
-<li>Java 虚拟机栈：每个线程运行方法（A调用B）时，先把A方法放入到栈底，然后加载B方法，B方法放在A方法栈帧上，执行完B方法，弹出栈，随后A弹出栈。对应着一个栈帧出栈入栈的过程。</li>
-<li>Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享的，对象实例在这里被分配内存，是垃圾收集器(GC)管理的主要区域。</li>
-<li>方法区：保存已被虚拟机加载的类信息（实现的接口、继承的父类等等）、常量、静态变量即时编译器编译后的代码，运行时常量池。</li>
-<li>直接内存：不是虚拟机运行时数据区的一部分，也不是虚拟机规范中定义的内存区域。大部分是Java的io操作使用。</li>
-<li>内存布局变化<br>
-<img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/B9FAF52A141F45C4A041BC70A2900032/3874" alt=""></li>
-</ol>
-<hr>
-<h1 id="垃圾回收机制">垃圾回收机制</h1>
-<h3 id="1-标记算法容易出现碎片">1. 标记算法，容易出现碎片。</h3>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/3990D9C0D13549E18B915820DBE9AA61/3876" alt=""></p>
-<h3 id="2-复制算法由于每次只用一半总是有一半的内存空间浪费">2. 复制算法,由于每次只用一半，总是有一半的内存空间浪费。</h3>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/D5FE5CE20E844A858F1F7AA1B1FBF259/3878" alt=""></p>
-<h3 id="3-标记-整理算法存在内存块的移动对性能有一些影响">3. 标记-整理算法，存在内存块的移动，对性能有一些影响。</h3>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/C7DA4D165C9B4751BACC0622707CFEBC/3880" alt=""></p>
-<h3 id="4分代收集大部分使用完后的对象都可以回收新生代采用复制算法年老代采用标记清除算法回收线程可以是多个">4.分代收集,大部分使用完后的对象都可以回收，新生代采用复制算法，年老代采用标记清除算法，回收线程可以是多个，</h3>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/37D7140961A14EA18CDF311C4453B179/3885" alt=""></p>
+                <h1 id="什么是io">什么是IO</h1>
+<p>我们常说的IO，指的是文件的输入和输出，但是在操作系统层面是如何定义IO的呢？到底什么样的过程可以叫做是一次IO呢？</p>
+<p>拿一次磁盘文件读取为例，我们要读取的文件是存储在磁盘上的，我们的目的是把它读取到内存中。可以把这个步骤简化成把数据从硬件（硬盘）中读取到用户空间中。</p>
+<p>Java中，主要有三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）和 异步IO（AIO）。<br><br>
+Java中提供的IO有关的API，在文件处理的时候，其实依赖操作系统层面的IO操作实现的，对操作系统的各种IO模型的封装。<br><br>
+比如在Linux 2.6以后，Java中NIO和AIO都是通过epoll（多路复用器）来实现的，而在Windows上，AIO是通过IOCP来实现的。</p>
+<h1 id="linux-五种io模型">Linux 五种I/O模型</h1>
+<h2 id="同步io">同步I/O</h2>
+<h3 id="阻塞io模型"><strong>阻塞I/O模型</strong></h3>
+<blockquote>
+<p>阻塞 I/O 是最简单的 I/O 模型，一般表现为进程或线程等待某个条件，如果条件不满足，则一直等下去。条件满足，则进行下一步操作。</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/53299DF62229422FB59D48D8E12A1309/3893" alt=""></p>
+<blockquote>
+<p>应用进程通过系统调用 recvfrom 接收数据，但由于内核还未准备好数据报，应用进程就会阻塞住，直到内核准备好数据报，recvfrom 完成数据报复制工作，应用进程才能结束阻塞状态。</p>
+</blockquote>
+<blockquote>
+<p>缺点: 比较耗费时间，比较适合那种对鱼的需求量小的情况（并发低，时效性要求低）。</p>
+</blockquote>
+<p>用户进程发出请求调用内核，内核发现没有数据，用户线程就一直阻塞，<a href="https://www.zhihu.com/search?type=content&amp;q=NIO" target="_blank" rel="noopener">但是这个阻塞是不消耗cpu资源的</a>，随后完成数据拷贝，进程结束。</p>
+<h3 id="非阻塞io模型"><strong>非阻塞I/O模型</strong></h3>
+<blockquote>
+<p>应用进程与内核交互，目的未达到之前，不再一味的等着，而是直接返回。然后通过轮询的方式，不停的去问内核数据准备有没有准备好。如果某一次轮询发现数据已经准备好了，那就把数据拷贝到用户空间中。</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7AEDD3C214954F2DB69A2B782F7B305E/3895" alt=""></p>
+<p>应用进程通过 recvfrom 调用不停的去和内核交互，直到内核准备好数据。如果没有准备好，内核会返回error，应用进程在得到error后，过一段时间再发送recvfrom请求。在两次发送请求的时间段，进程可以先做别的事情。</p>
+<blockquote>
+<p>缺点: 还是得循环监看是否存在数据。</p>
+</blockquote>
+<p>用户进程发起请求，内核发现没有数据立即返回结果，这时用户进程不再阻塞等待；不过用户进程会循环询问是否有数据，当内核返回存在数据时，这时用户进程还是得阻塞，等待数据拷贝。</p>
+<h3 id="信号驱动io模型"><strong>信号驱动I/O模型</strong></h3>
+<blockquote>
+<p>应用进程在读取文件时通知内核，如果某个 socket 的某个事件发生时，请向我发一个信号。在收到信号后，信号对应的处理函数会进行后续处理。</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7D46384B81804161B9A9EC8FE2A7FA84/3897" alt=""></p>
+<blockquote>
+<p>应用进程预先向内核注册一个信号处理函数，然后用户进程返回，并且不阻塞，当内核数据准备就绪时会发送一个信号给进程，用户进程便在信号处理函数中开始把数据拷贝的用户空间中。</p>
+</blockquote>
+<p>信号驱动是用户进程调用时告诉内核，如果有数据就发信号给我，然后同步阻塞等待数据拷贝，但是这里有一个重点就是 等待信号是异步的 ，最终数据拷贝仍然是同步。</p>
+<h2 id="io复用模型"><strong>I/O复用模型</strong></h2>
+<blockquote>
+<p>多个进程的IO可以注册到同一个管道上，这个管道会统一和内核进行交互。当管道中的某一个请求需要的数据准备好之后，进程再把对应的数据拷贝到用户空间中。</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/D3A8BFAB8D044EB3905BF589BEA1237B/3899" alt=""></p>
+<p>IO多路转接是多了一个select函数，多个进程的IO可以注册到同一个select上，当用户进程调用该select，select会监听所有注册好的IO，如果所有被监听的IO需要的数据都没有准备好时，select调用进程会阻塞。当任意一个IO所需的数据准备好之后，select调用就会返回，然后进程在通过recvfrom来进行数据拷贝。</p>
+<p>这里的IO复用模型，并没有向内核注册信号处理函数，所以，他并不是非阻塞的。进程在发出select后，要等到select监听的所有IO操作中至少有一个需要的数据准备好，才会有返回，并且也需要再次发送请求去进行文件的拷贝。</p>
+<p>用户进程下开启一个线程用来监听所注册的socket,如果所监听的多个socket，有几个发生数据流能立即监听到，然后数据同步拷贝，并且I/O复用有三种模式可选择：select、poll、epoll。<br>
+<a href="https://blog.csdn.net/Monster7559/article/details/97389305" target="_blank" rel="noopener">三种IO复用比较</a></p>
+<h2 id="异步io模型">异步I/O模型</h2>
+<h3 id="异步io">异步I/O</h3>
+<blockquote>
+<p>应用进程把IO请求传给内核后，完全由内核去操作文件拷贝。内核完成相关操作后，会发信号告诉应用进程本次IO已经完成。</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/5856B419891D49968886AAB21BBF00F9/3901" alt=""></p>
+<blockquote>
+<p>用户进程发起aio_read操作之后，给内核传递描述符、缓冲区指针、缓冲区大小等，告诉内核当整个操作完成时，如何通知进程，然后就立刻去做其他事情了。当内核收到aio_read后，会立刻返回，然后内核开始等待数据准备，数据准备好以后，直接把数据拷贝到用户控件，然后再通知进程本次IO已经完成。</p>
+</blockquote>
+<p>下图是几种常见I/O模型的对比：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/04E68BB4F96C44D3AA77BA9A3A177D6D/3903" alt=""></p>
+<p>借鉴文章：<a href="https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect</a><br><br>
+学习美团文章：<a href="https://www.zhihu.com/search?type=content&amp;q=NIO" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=NIO</a><br><br>
+拓展知秋文章：<a href="https://juejin.im/post/5c2cc075f265da611037298e" target="_blank" rel="noopener">https://juejin.im/post/5c2cc075f265da611037298e</a></p>
 
                 
 
@@ -241,13 +281,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/类的加载机制/" data-toggle="tooltip" data-placement="top" title="类的加载机制">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/" data-toggle="tooltip" data-placement="top" title="Hashtable和ConcurrentHashMap的线程安全问题">Next Post &rarr;</a>
+                            <a href="/article/Node/" data-toggle="tooltip" data-placement="top" title="Node">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -303,7 +339,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#内存布局"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x5185;&#x5B58;&#x5E03;&#x5C40;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#运行时数据区"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">&#x8FD0;&#x884C;&#x65F6;&#x6570;&#x636E;&#x533A;</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#垃圾回收机制"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-标记算法容易出现碎片"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">1. &#x6807;&#x8BB0;&#x7B97;&#x6CD5;&#xFF0C;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x788E;&#x7247;&#x3002;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-复制算法由于每次只用一半总是有一半的内存空间浪费"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">2. &#x590D;&#x5236;&#x7B97;&#x6CD5;,&#x7531;&#x4E8E;&#x6BCF;&#x6B21;&#x53EA;&#x7528;&#x4E00;&#x534A;&#xFF0C;&#x603B;&#x662F;&#x6709;&#x4E00;&#x534A;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x6D6A;&#x8D39;&#x3002;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3-标记-整理算法存在内存块的移动对性能有一些影响"><span class="toc-nav-number">2.0.3.</span> <span class="toc-nav-text">3. &#x6807;&#x8BB0;-&#x6574;&#x7406;&#x7B97;&#x6CD5;&#xFF0C;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x5757;&#x7684;&#x79FB;&#x52A8;&#xFF0C;&#x5BF9;&#x6027;&#x80FD;&#x6709;&#x4E00;&#x4E9B;&#x5F71;&#x54CD;&#x3002;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4分代收集大部分使用完后的对象都可以回收新生代采用复制算法年老代采用标记清除算法回收线程可以是多个"><span class="toc-nav-number">2.0.4.</span> <span class="toc-nav-text">4.&#x5206;&#x4EE3;&#x6536;&#x96C6;,&#x5927;&#x90E8;&#x5206;&#x4F7F;&#x7528;&#x5B8C;&#x540E;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x53EF;&#x4EE5;&#x56DE;&#x6536;&#xFF0C;&#x65B0;&#x751F;&#x4EE3;&#x91C7;&#x7528;&#x590D;&#x5236;&#x7B97;&#x6CD5;&#xFF0C;&#x5E74;&#x8001;&#x4EE3;&#x91C7;&#x7528;&#x6807;&#x8BB0;&#x6E05;&#x9664;&#x7B97;&#x6CD5;&#xFF0C;&#x56DE;&#x6536;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x662F;&#x591A;&#x4E2A;&#xFF0C;</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#什么是io"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x4EC0;&#x4E48;&#x662F;IO</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#linux-五种io模型"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Linux &#x4E94;&#x79CD;I/O&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#同步io"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">&#x540C;&#x6B65;I/O</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#阻塞io模型"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"><strong>&#x963B;&#x585E;I/O&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#非阻塞io模型"><span class="toc-nav-number">2.1.2.</span> <span class="toc-nav-text"><strong>&#x975E;&#x963B;&#x585E;I/O&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#信号驱动io模型"><span class="toc-nav-number">2.1.3.</span> <span class="toc-nav-text"><strong>&#x4FE1;&#x53F7;&#x9A71;&#x52A8;I/O&#x6A21;&#x578B;</strong></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#io复用模型"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><strong>I/O&#x590D;&#x7528;&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#异步io模型"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">&#x5F02;&#x6B65;I/O&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异步io"><span class="toc-nav-number">2.3.1.</span> <span class="toc-nav-text">&#x5F02;&#x6B65;I/O</span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
@@ -323,7 +359,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Jvm" title="Jvm">Jvm</a>
+                          <a class="tag" href="/tags/#I/O" title="I/O">I/O</a>
                         
                     </div>
                 </section>
