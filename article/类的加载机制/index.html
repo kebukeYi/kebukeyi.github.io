@@ -149,14 +149,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,7 +213,8 @@
                 post-container">
 
                 <h2 id="类加载机制">类加载机制</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/4375B2B0FB874A909131BFC02553A561/3887" alt=""><br>
+<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/4375B2B0FB874A909131BFC02553A561/3887) -->
+<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/WpwPYz8l7NCu.png" alt="mark"><br>
 <br></p>
 <h3 id="类加载的生命周期">类加载的生命周期</h3>
 <p>加载：把文件字节流转换虚拟机中的变量<br><br>
@@ -234,11 +235,13 @@
 <p>使用：new出实例使用时执行。<br><br>
 卸载：垃圾回收。<br></p>
 <h2 id="加载器">加载器</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/121B130828F94AE58E37918F1CC443E5/3889" alt=""><br>
+<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/121B130828F94AE58E37918F1CC443E5/3889) -->
+<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/zyxTgBoux1Ld.png" alt="mark"><br>
 其中在开发Java中能够影响的只有加载这一步骤。<br><br>
 类加载器经常用在：部署时的热替换以及类的加密和解密。</p>
 <h2 id="双亲委派模型">双亲委派模型</h2>
-<p><img src="https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/6D03D815801E4464A4D6A47F9EC6FF49/3891" alt=""></p>
+<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/6D03D815801E4464A4D6A47F9EC6FF49/3891) -->
+<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/qSjUrYowblpW.png" alt="mark"></p>
 <h3 id="为什么有这个双亲委派模型">为什么有这个双亲委派模型？<br></h3>
 <p>保持一个合适的优先级。<br>
 比如Object这个类，通过层层加载器，最终都是通过根加载器加载的，保证这个Object类在各个程序中是同一个类，因为决定这个类是不是同唯一类，有两个标准：第一：这个类本身；第二：加载这个类的类加载器。如果一个类由不同的类加载器加载，那么对于虚拟机而言就是两个类。</p>

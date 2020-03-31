@@ -9,13 +9,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/Hashtable-ConcurrentHashMap-Thread/</loc>
-        <lastmod>2020-03-26T10:14:02.171Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA-%E5%8E%9F%E7%A0%81-%E5%8F%8D%E7%A0%81-%E8%A1%A5%E7%A0%81-Java/</loc>
         <lastmod>2020-03-28T06:24:36.698Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -30,22 +23,36 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/I-O/</loc>
-        <lastmod>2020-03-30T16:08:46.595Z</lastmod>
+        <loc>http://yoursite.com/tags/Java-HashMap/</loc>
+        <lastmod>2020-03-31T15:05:36.383Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/Hashtable-ConcurrentHashMap-Thread/</loc>
+        <lastmod>2020-03-31T15:11:07.306Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/Jvm/</loc>
-        <lastmod>2020-03-30T16:08:56.467Z</lastmod>
+        <lastmod>2020-03-31T15:13:25.855Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/Java-HashMap/</loc>
-        <lastmod>2020-03-31T15:05:36.383Z</lastmod>
+        <loc>http://yoursite.com/tags/I-O/</loc>
+        <lastmod>2020-03-31T15:18:39.281Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/Stream-Java/</loc>
+        <lastmod>2020-03-31T15:39:14.317Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
