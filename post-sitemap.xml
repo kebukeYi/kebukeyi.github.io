@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/Java8%E4%B9%8BLambda/</loc>
+        <lastmod>2020-03-31T15:53:35.886Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/Java8%E4%B9%8BStream/</loc>
         <lastmod>2020-03-31T15:39:14.317Z</lastmod>
         <changefreq>weekly</changefreq>
