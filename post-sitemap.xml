@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/%E6%B5%85%E6%9E%90%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E4%BB%A5%E5%8F%8A%E5%9C%A8java%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+        <lastmod>2020-05-25T08:22:56.374Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Node/</loc>
+        <lastmod>2020-05-25T08:08:06.762Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/Java8%E4%B9%8BStream/</loc>
         <lastmod>2020-04-10T05:05:24.652Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -49,14 +65,6 @@
     <url>
         <loc>http://yoursite.com/article/HashMap%E5%8E%9F%E7%90%86/</loc>
         <lastmod>2020-03-31T15:05:36.383Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/Node/</loc>
-        <lastmod>2020-03-29T15:22:24.827Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

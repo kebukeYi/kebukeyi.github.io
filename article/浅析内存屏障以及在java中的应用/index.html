@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          计算机原理之原码反码补码 - Future Code
+          浅析内存屏障以及在java中的应用 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/计算机原理之原码反码补码/">
+    <link rel="canonical" href="http://yoursite.com/article/浅析内存屏障以及在java中的应用/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,12 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java">计算机 原码 反码 补码 Java</a>
-                            
                         </div>
-                        <h1>计算机原理之原码反码补码</h1>
+                        <h1>浅析内存屏障以及在java中的应用</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-03-28
+                            2020-05-25
                         </span>
                     </div>
                 
@@ -212,52 +210,79 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="原码">原码</h2>
-<p>原码：最高位为符号位，其余各位为数值本身的绝对值。<br><br>
-正数的原码是其绝对值。<br><br>
-负数的原码即是其绝对值的原码再将其第一位变为1。</p>
-<h2 id="反码">反码</h2>
-<p>正数：反码与原码相同。<br><br>
-负数：符号位为1，其余位对原码取反。<br></p>
-<h2 id="补码">补码</h2>
-<p>计算机内存存储整数都是采用整数的补码形式表示，最高位直接表示是 符号位：0 表示正数 1表示负数。<br><br>
-比如Java的byte类型存储(8位)：最大值2^7-1 ：0111 1111; 最小值是-2^7 : 1111 1111<br><br>
-正数的补码：为这个数的2进制码，例如3：0000 0101<br><br>
-负数的补码：为这个负数的绝对值的2进制码，取反加1，</p>
-<blockquote>
-<p>例如－3：</p>
-</blockquote>
-<p>3的2进制码取反为: 0000 0011 -&gt; 1111 1100<br><br>
-加1：1111 1101<br><br>
-所以-3的补码是：1111 1101<br></p>
-<blockquote>
-<p>从内存中取出补码计算这个数：</p>
-</blockquote>
-<ol>
+                <h1 id="浅析内存屏障以及在java中的应用">浅析内存屏障以及在java中的应用</h1>
+<ul>
 <li>
-<p>从一个正数的补码计算这个正数。<br>
-例如0000 0101：因为符号位是0，所以是正数，所以直接计算这个正数就行了，所以结果是 3</p>
+<h2 id="指令重排序">指令重排序</h2>
+<ul>
+<li>程序在运行时内存实际的访问顺序和程序代码编写的访问顺序不一定一致，这就是内存乱序访问。</li>
+<li>内存乱序访问行为出现的理由是为了提升程序运行时的性能。这种内存乱序问题主要是由两种原因的：<br>
+编译器在编译时进行了编译优化，导致指令重排；在多cpu环境下，为了尽可能地避免处理器访问主内存的时间开销，处理器大多会利用缓存(cache)以提高性能。</li>
+<li>在这种模型下会存在一个现象，即缓存中的数据与主内存的数据并不是实时同步的，各CPU（或CPU核心）间缓存的数据也不是实时同步的。这导致在同一个时间点，各CPU所看到同一内存地址的数据的值可能是不一致的。<br>
+从程序的视角来看，就是在同一个时间点，各个线程所看到的共享变量的值可能是不一致的。</li>
+</ul>
 </li>
 <li>
-<p>从一个负数的补码计算这个负数。例如－3：1111 1101：<br>
-因为符号位（最高位）为1，所以表示这个数是负数<br>
-用补码取反加1为这个负数的绝对值整数值：0000 0010 + 1 =&gt; 0000 0011 =&gt; 3<br>
-所以1111 1101的值为-3</p>
+<h2 id="java-内存模型中的happen-before原则">java 内存模型中的happen before原则</h2>
+<ul>
+<li>JSR-1337制定了Java内存模型(Java Memory Model, JMM)中规定的hb原则大致有以下几点：
+<ul>
+<li>程序次序法则：线程中的每个动作A都happens-before于该线程中的每一个动作B，其中，在程序中，所有的动作B都能出现在A之后。</li>
+<li>监视器锁法则：对一个监视器锁的解锁 happens-before于每一个后续对同一监视器锁的加锁。</li>
+<li>volatile变量法则：对volatile域的写入操作happens-before于每一个后续对同一个域的读写操作。</li>
+<li>线程启动法则：在一个线程里，对Thread.start的调用会happens-before于每个启动线程的动作。</li>
+<li>线程终结法则：线程中的任何动作都happens-before于其他线程检测到这个线程已经终结、或者从Thread.join调用中成功返回，或Thread.isAlive返回false。</li>
+<li>中断法则：一个线程调用另一个线程的interrupt happens-before于被中断的线程发现中断。</li>
+<li>传递性：如果A happens-before于B，且B happens-before于C，则A happens-before于C。</li>
+</ul>
 </li>
-</ol>
-<blockquote>
-<p>例如:<br><br>
-byte b = 127;<br><br>
-b = (byte) (b + 1);<br><br>
-最后b的值是多少？<br></p>
-</blockquote>
-<p>127的二进制为: 0111 1111<br><br>
-127+1则为：0111 1111 + 1 = 1000 0000<br><br>
-所以当取出计算1000 0000的值时，<br><br>
-最高位为1，所以是负数<br><br>
-取反加1：0111 1111 + 1 = 1000 0000<br><br>
-计算1000 0000的值：128<br><br>
-结果：128的负值，所以为-128，即byte类型的127加1的值为-128<br></p>
+<li>jmm 对java语义的比较重要的两个扩展是：
+<ul>
+<li>对volatile语义的扩展保证了volatile变量在一些情况下不会重排序，volatile的64位变量double和long的读取和赋值操作都是原子的。</li>
+<li>对final语义的扩展保证一个对象的构建方法结束前，所有final成员变量都必须完成初始化（前提是没有this引用溢出）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="内存屏障memory-barrier">内存屏障(Memory Barrier)</h2>
+<ul>
+<li>
+<p>Memory barrier 能够让 CPU 或编译器在内存访问上有序。一个 Memory barrier 之前的内存访问操作必定先于其之后的完成。</p>
+</li>
+<li>
+<p>Memory barrier是一种CPU指令，用于控制特定条件下的重排序和内存可见性问题。Java编译器也会根据内存屏障的规则禁止重排序。</p>
+</li>
+<li>
+<p>有的处理器的重排序规则较严，无需内存屏障也能很好的工作，Java编译器会在这种情况下不放置内存屏障。</p>
+</li>
+<li>
+<p>Memory Barrier可以被分为以下几种类型：</p>
+<ul>
+<li>LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。</li>
+<li>StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。</li>
+<li>LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。<br>
+*StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。</li>
+</ul>
+<p>它的开销是四种屏障中最大的、在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能。Oracle的JDK中提供了Unsafe. putOrderedObject，Unsafe. putOrderedInt，Unsafe. putOrderedLong这三个方法，JDK会在执行这三个方法时插入StoreStore内存屏障，避免发生写操作重排序。而在Intel 64/IA-32架构下，StoreStore屏障并不需要，Java编译器会将StoreStore屏障去除。比起写入volatile变量之后执行StoreLoad屏障的巨大开销，采用这种方法除了避免重排序而带来的性能损失以外，不会带来其它的性能开销。具体用法可以看下disruptor的Sequence的set方法。Intel 64/IA-32架构下写操作之间不会发生重排序，也就是说在处理器上操作的顺序是可以保证的，这时候使用volatile来避免重排序是多此一举的。但是，Java编译器却可能生成重排序后的指令。采用putOrderedObject可以解决这个问题。即使在其它会发生写写重排序的处理器中，由于StoreStore屏障的性能损耗小于StoreLoad屏障，采用这一方法也是一种可行的方案。但值得再次注意的是，这一方案不是对volatile语义的等价替换，而是在特定场景下做的特殊优化，它仅避免了写写重排序，但不保证内存可见性。</p>
+</li>
+</ul>
+</li>
+<li>
+<h2 id="volatile语义中的内存屏障">volatile语义中的内存屏障</h2>
+<ul>
+<li>在每个volatile写操作前插入StoreStore屏障，在写操作后插入StoreLoad屏障；<br>
+在每个volatile读操作前插入LoadLoad屏障，在读操作后插入LoadStore屏障；</li>
+<li>volatile的内存屏障策略非常严格保守，保证了线程可见性。</li>
+</ul>
+</li>
+<li>
+<h2 id="final语义中的内存屏障">final语义中的内存屏障</h2>
+<ul>
+<li>新建对象过程中，构造体中对final域的初始化写入(StoreStore屏障)和这个对象赋值给其他引用变量，这两个操作不能重排序；初次读包含final域的对象引用和读取这个final域（LoadLoad屏障），这两个操作不能重排序；Intel 64/IA-32架构下写操作之间不会发生重排序StoreStore会被省略，这种架构下也不会对逻辑上有先后依赖关系的操作进行重排序，所以LoadLoad也会变省略。</li>
+</ul>
+</li>
+</ul>
 
                 
 
@@ -265,13 +290,9 @@ b = (byte) (b + 1);<br><br>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/Node/" data-toggle="tooltip" data-placement="top" title="Node">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/类的加载机制/" data-toggle="tooltip" data-placement="top" title="类的加载机制">Next Post &rarr;</a>
+                            <a href="/article/Java8之Stream/" data-toggle="tooltip" data-placement="top" title="Java8之Stream">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -327,7 +348,7 @@ b = (byte) (b + 1);<br><br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#原码"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x539F;&#x7801;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#反码"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x53CD;&#x7801;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#补码"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">&#x8865;&#x7801;</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#浅析内存屏障以及在java中的应用"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x6D45;&#x6790;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x4EE5;&#x53CA;&#x5728;java&#x4E2D;&#x7684;&#x5E94;&#x7528;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#指令重排序"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x6307;&#x4EE4;&#x91CD;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#java-内存模型中的happen-before原则"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">java &#x5185;&#x5B58;&#x6A21;&#x578B;&#x4E2D;&#x7684;happen before&#x539F;&#x5219;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#内存屏障memory-barrier"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">&#x5185;&#x5B58;&#x5C4F;&#x969C;(Memory Barrier)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#volatile语义中的内存屏障"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">volatile&#x8BED;&#x4E49;&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x5C4F;&#x969C;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#final语义中的内存屏障"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">final&#x8BED;&#x4E49;&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x5C4F;&#x969C;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -347,8 +368,6 @@ b = (byte) (b + 1);<br><br>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java">计算机 原码 反码 补码 Java</a>
-                        
                     </div>
                 </section>
                 
