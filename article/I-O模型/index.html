@@ -222,10 +222,11 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <h2 id="同步io">同步I/O</h2>
 <h3 id="阻塞io模型"><strong>阻塞I/O模型</strong></h3>
 <blockquote>
-<p>阻塞 I/O 是最简单的 I/O 模型，一般表现为进程或线程等待某个条件，如果条件不满足，则一直等下去。条件满足，则进行下一步操作。</p>
+<p>阻塞 I/O 是最简单的 I/O 模型，一般表现为进程或线程等待某个条件，如果条件不满足，则一直等下去。条件满足，则进行下一步操作。<br>
+<img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard.png" alt=""></p>
 </blockquote>
 <!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/53299DF62229422FB59D48D8E12A1309/3893) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/NYRVxDv0cwrr.png" alt="mark"></p>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/NYRVxDv0cwrr.png) -->
 <blockquote>
 <p>应用进程通过系统调用 recvfrom 接收数据，但由于内核还未准备好数据报，应用进程就会阻塞住，直到内核准备好数据报，recvfrom 完成数据报复制工作，应用进程才能结束阻塞状态。</p>
 </blockquote>
@@ -238,7 +239,8 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <p>应用进程与内核交互，目的未达到之前，不再一味的等着，而是直接返回。然后通过轮询的方式，不停的去问内核数据准备有没有准备好。如果某一次轮询发现数据已经准备好了，那就把数据拷贝到用户空间中。</p>
 </blockquote>
 <!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7AEDD3C214954F2DB69A2B782F7B305E/3895) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/33QxNg1y7J3Q.png" alt="mark"></p>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/33QxNg1y7J3Q.png) -->
+<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard1.png" alt=""></p>
 <p>应用进程通过 recvfrom 调用不停的去和内核交互，直到内核准备好数据。如果没有准备好，内核会返回error，应用进程在得到error后，过一段时间再发送recvfrom请求。在两次发送请求的时间段，进程可以先做别的事情。</p>
 <blockquote>
 <p>缺点: 还是得循环监看是否存在数据。</p>
@@ -249,7 +251,8 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <p>应用进程在读取文件时通知内核，如果某个 socket 的某个事件发生时，请向我发一个信号。在收到信号后，信号对应的处理函数会进行后续处理。</p>
 </blockquote>
 <!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7D46384B81804161B9A9EC8FE2A7FA84/3897) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/4tYNMCTerD7l.png" alt="mark"></p>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/4tYNMCTerD7l.png) -->
+<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard3.png" alt=""></p>
 <blockquote>
 <p>应用进程预先向内核注册一个信号处理函数，然后用户进程返回，并且不阻塞，当内核数据准备就绪时会发送一个信号给进程，用户进程便在信号处理函数中开始把数据拷贝的用户空间中。</p>
 </blockquote>
@@ -259,7 +262,8 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <p>多个进程的IO可以注册到同一个管道上，这个管道会统一和内核进行交互。当管道中的某一个请求需要的数据准备好之后，进程再把对应的数据拷贝到用户空间中。</p>
 </blockquote>
 <!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/D3A8BFAB8D044EB3905BF589BEA1237B/3899) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/RxQm0YhPQ5EC.png" alt="mark"></p>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/RxQm0YhPQ5EC.png) -->
+<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard6.png" alt=""></p>
 <p>IO多路转接是多了一个select函数，多个进程的IO可以注册到同一个select上，当用户进程调用该select，select会监听所有注册好的IO，如果所有被监听的IO需要的数据都没有准备好时，select调用进程会阻塞。当任意一个IO所需的数据准备好之后，select调用就会返回，然后进程在通过recvfrom来进行数据拷贝。</p>
 <p>这里的IO复用模型，并没有向内核注册信号处理函数，所以，他并不是非阻塞的。进程在发出select后，要等到select监听的所有IO操作中至少有一个需要的数据准备好，才会有返回，并且也需要再次发送请求去进行文件的拷贝。</p>
 <p>用户进程下开启一个线程用来监听所注册的socket,如果所监听的多个socket，有几个发生数据流能立即监听到，然后数据同步拷贝，并且I/O复用有三种模式可选择：select、poll、epoll。<br>
@@ -270,15 +274,17 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <p>应用进程把IO请求传给内核后，完全由内核去操作文件拷贝。内核完成相关操作后，会发信号告诉应用进程本次IO已经完成。</p>
 </blockquote>
 <!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/5856B419891D49968886AAB21BBF00F9/3901) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/WcRNHGdajbOw.png" alt="mark"></p>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/WcRNHGdajbOw.png) -->
+<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard7.png" alt=""></p>
 <blockquote>
 <p>用户进程发起aio_read操作之后，给内核传递描述符、缓冲区指针、缓冲区大小等，告诉内核当整个操作完成时，如何通知进程，然后就立刻去做其他事情了。当内核收到aio_read后，会立刻返回，然后内核开始等待数据准备，数据准备好以后，直接把数据拷贝到用户控件，然后再通知进程本次IO已经完成。</p>
 </blockquote>
 <p>下图是几种常见I/O模型的对比：</p>
 <!-- 
 ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/04E68BB4F96C44D3AA77BA9A3A177D6D/3903) -->
-<p><img src="http://q82b99tjb.bkt.clouddn.com/images/20200331/FELY8FiJqMuU.png" alt="mark"></p>
-<p>借鉴微信文章：<a href="https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect</a><br><br>
+<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/FELY8FiJqMuU.png) -->
+<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard8.png" alt="mark"><br>
+借鉴微信文章：<a href="https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect</a><br><br>
 学习美团文章：<a href="https://www.zhihu.com/search?type=content&amp;q=NIO" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=NIO</a><br><br>
 拓展知秋文章：<a href="https://juejin.im/post/5c2cc075f265da611037298e" target="_blank" rel="noopener">https://juejin.im/post/5c2cc075f265da611037298e</a><br></p>
 
