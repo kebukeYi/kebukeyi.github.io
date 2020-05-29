@@ -7,8 +7,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/article/Jvm%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</loc>
-        <lastmod>2020-05-29T00:01:35.697Z</lastmod>
+        <loc>http://yoursite.com/article/%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/</loc>
+        <lastmod>2020-05-29T00:33:30.344Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,7 +16,15 @@
 
     <url>
         <loc>http://yoursite.com/article/%E6%B5%85%E6%9E%90%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E4%BB%A5%E5%8F%8A%E5%9C%A8java%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
-        <lastmod>2020-05-28T23:47:03.175Z</lastmod>
+        <lastmod>2020-05-29T00:33:03.409Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Jvm%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</loc>
+        <lastmod>2020-05-29T00:01:35.697Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
