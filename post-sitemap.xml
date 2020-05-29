@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/</loc>
+        <lastmod>2020-05-29T05:36:52.485Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/I-O%E6%A8%A1%E5%9E%8B/</loc>
         <lastmod>2020-05-29T01:07:40.258Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -49,14 +57,6 @@
     <url>
         <loc>http://yoursite.com/article/Java8%E4%B9%8BLambda/</loc>
         <lastmod>2020-05-29T00:54:57.593Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/</loc>
-        <lastmod>2020-05-29T00:33:30.344Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
