@@ -51,13 +51,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/Jvm/</loc>
-        <lastmod>2020-05-29T00:01:35.697Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/Java-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/</loc>
         <lastmod>2020-05-29T00:33:03.409Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -67,6 +60,13 @@
     <url>
         <loc>http://yoursite.com/tags/TCP-%E7%BD%91%E7%BB%9C/</loc>
         <lastmod>2020-05-29T00:33:30.344Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/Jvm/</loc>
+        <lastmod>2020-05-29T00:52:10.130Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
