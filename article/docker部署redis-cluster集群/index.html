@@ -149,14 +149,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -295,7 +295,7 @@
 <ul>
 <li>docker ps 查看容器</li>
 </ul>
-<p><img src="./docker-redis-cluster/docker-ps.png" alt=""></p>
+<!-- ![](./docker-redis-cluster/docker-ps.png) -->
 <ul>
 <li>其他命令</li>
 </ul>
@@ -309,11 +309,13 @@
 <li>在容器中执行集群命令</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/redis-cli --cluster create \</span><br><span class="line">37.56.*.*:7001 \</span><br><span class="line">37.56.*.*:7002 \</span><br><span class="line">37.56.*.*:7003 \</span><br><span class="line">37.56.*.*:7004 \</span><br><span class="line">37.56.*.*:7005 \</span><br><span class="line">37.56.*.*:7006 \</span><br><span class="line">--cluster-replicas 1   // &quot;1&quot; 代表主从比例1：1,前三个为主，后三个为从。</span><br></pre></td></tr></table></figure>
-<p><img src="./docker-redis-cluster/redis-success.png" alt=""></p>
+<!-- ![](./docker-redis-cluster/redis-success.png) -->
 <ul>
 <li>连接成功</li>
 </ul>
-<p><img src="./docker-redis-cluster/redis.png" alt=""></p>
+<!-- ![](./docker-redis-cluster/redis.png) -->
+<h2 id="进行测试">进行测试</h2>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> docker exec -it redis-7001 bash   进入7001容器</span><br><span class="line"> redis-cli -h 47.*.*.* -p 7001     进入7001 redis</span><br><span class="line"> ...进行指令操作</span><br><span class="line"> cluster info  进行集群状态查看</span><br><span class="line"> cluster nodes 进行节点查看</span><br><span class="line"></span><br><span class="line"> docker stop redis-7001     进行宕机实验</span><br><span class="line"> docker exec -it redis-7002 bash   进入7002容器</span><br><span class="line"> redis-cli -h 47.*.*.* -p 7002     进入7002 redis</span><br><span class="line"> 会发现从7001的节点变成主节点</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker start redis-7001  再次启动redis7001 </span><br><span class="line">会发现redis-7001变成了从节点</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -379,7 +381,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker部署redis-cluster集群"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">docker&#x90E8;&#x7F72;redis-cluster&#x96C6;&#x7FA4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#主机环境"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E3B;&#x673A;&#x73AF;&#x5883;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装docker"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x5B89;&#x88C5;docker</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建-redis-容器"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">&#x521B;&#x5EFA; redis &#x5BB9;&#x5668;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集群redis-50-安装集群方法"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">&#x96C6;&#x7FA4;(redis 5.0 &#x5B89;&#x88C5;&#x96C6;&#x7FA4;&#x65B9;&#x6CD5;)</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker部署redis-cluster集群"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">docker&#x90E8;&#x7F72;redis-cluster&#x96C6;&#x7FA4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#主机环境"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E3B;&#x673A;&#x73AF;&#x5883;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装docker"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x5B89;&#x88C5;docker</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建-redis-容器"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">&#x521B;&#x5EFA; redis &#x5BB9;&#x5668;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集群redis-50-安装集群方法"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">&#x96C6;&#x7FA4;(redis 5.0 &#x5B89;&#x88C5;&#x96C6;&#x7FA4;&#x65B9;&#x6CD5;)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#进行测试"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
