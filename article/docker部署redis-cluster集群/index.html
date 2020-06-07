@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -232,7 +232,7 @@
 <li>
 <p>安装docker ce(docker社区版-必须-版本会新一点)</p>
 <ul>
-<li>ocker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。<br>
+<li>docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 docker 。<br>
 通过 uname -r 命令查看你当前的内核版本</li>
 <li>移除旧的版本：</li>
 </ul>
@@ -242,11 +242,11 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
 <ul>
-<li>安装 Docker-ce：</li>
+<li>安装 docker-ce：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce</span><br></pre></td></tr></table></figure>
 <ul>
-<li>启动 Docker 后台服务</li>
+<li>启动 docker 后台服务</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
 <ul>
@@ -256,119 +256,64 @@
 <ul>
 <li>查看防火墙状态</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   systemctl status firewalld</span><br><span class="line">``` </span><br><span class="line">若当前状态时dead状态，则需要开启防火墙；</span><br></pre></td></tr></table></figure>
-<p>systemctl start firewalld<br>
-systemctl status firewalld 查看firewalld状态，显示running即已开启了<br>
-systemctl stop firewalld 关闭防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 开放需要的端口</span><br></pre></td></tr></table></figure>
-<p>firewall-cmd --permanent --zone=public --add-port=7001-7006/tcp<br>
-firewall-cmd --permanent --zone=public --add-port=17001-17006/tcp<br>
-firewall-cmd --reload  //重新加载配置<br>
-firewall-cmd --permanent --zone=public --list-ports  //查看开放端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 获取 redis 镜像</span><br></pre></td></tr></table></figure>
-<p>docker pull redis<br>
-docker images 查看镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  ![](./docker部署redis-cluster集群/redis-images.png)</span><br><span class="line"></span><br><span class="line">## 创建 redis 容器</span><br><span class="line">* 创建 redis 的配置文件</span><br><span class="line"> 在 /home 下新建 redis-cluster 文件夹，然后创建 redis-cluster.tmpl 文件，文件内容如下：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld</span><br></pre></td></tr></table></figure>
+<ul>
+<li>若当前状态时dead状态，则需要开启防火墙；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld</span><br><span class="line">systemctl status firewalld 查看firewalld状态，显示running即已开启了</span><br><span class="line">systemctl stop firewalld 关闭防火墙</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开放需要的端口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=7001-7006/tcp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=17001-17006/tcp</span><br><span class="line">firewall-cmd --reload  //重新加载配置</span><br><span class="line">firewall-cmd --permanent --zone=public --list-ports  //查看开放端口</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取 redis 镜像</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis</span><br><span class="line">docker images 查看镜像</span><br></pre></td></tr></table></figure>
+<p><img src="./docker%E9%83%A8%E7%BD%B2redis-cluster%E9%9B%86%E7%BE%A4/redis-images.png" alt=""></p>
 </li>
 </ul>
-<p>port ${PORT}  //redis运行端口号<br>
-protected-mode no   //<br>
-cluster-enabled yes  //集群模式<br>
-cluster-config-file nodes.conf  //redis集群自己维护节点信息<br>
-cluster-node-timeout 5000  //超时时间<br>
-cluster-announce-ip 37.56.<em>.</em>         //自己的ip<br>
-cluster-announce-port ${PORT}  //节点映射端口<br>
-cluster-announce-bus-port 1${PORT} //节点通信端口<br>
-appendonly yes</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 命令查看配置：</span><br></pre></td></tr></table></figure>
-<p>cat /home/redis-cluster/redis-cluster.tmpl</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 在/home/redis-cluster下生成conf和data目标，并生成配置信息</span><br><span class="line">共生成6个文件夹，从7001到7006，每个文件夹下包含data和conf文件夹，同时conf里面有redis.conf配置文件</span><br></pre></td></tr></table></figure>
-<p>for port in <code>seq 7001 7006</code>; do <br>
-mkdir -p ./${port}/conf <br>
-&amp;&amp; PORT=${port} envsubst &lt; ./redis-cluster.tmpl &gt; ./${port}/conf/redis.conf <br>
-&amp;&amp; mkdir -p ./${port}/data; <br>
-done</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 创建6个redis容器</span><br><span class="line">这里使用 host 网络方式启动容器</span><br></pre></td></tr></table></figure>
-<p>for port in <code>seq 7001 7006</code>; do <br>
-docker run -d -ti <br>
--v /home/redis-cluster/${port}/conf/redis.conf:/usr/local/etc/redis/redis.conf <br>
--v /home/redis-cluster/${port}/data:/data <br>
-–restart always --name redis-${port} --net host <br>
-–sysctl net.core.somaxconn=1024 redis redis-server /usr/local/etc/redis/redis.conf; <br>
-done</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* docker ps 查看容器</span><br><span class="line"></span><br><span class="line">![](./docker部署redis-cluster集群/docker-ps.png)</span><br><span class="line"></span><br><span class="line">*  其他命令</span><br></pre></td></tr></table></figure>
-<p>docker stop name/id<br>
-docker rm -f name/id</p>
-<p>rm -f 文件夹名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 集群(redis 5.0 安装集群方法)</span><br><span class="line"> * 进入一个已运行的容器</span><br></pre></td></tr></table></figure>
-<p>docker exec -it redis-7001 bash</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 在容器中执行集群命令</span><br></pre></td></tr></table></figure>
-<p>/usr/local/bin/redis-cli --cluster create <br>
-37.56.<em>.</em>:7001 <br>
-37.56.<em>.</em>:7002 <br>
-37.56.<em>.</em>:7003 <br>
-37.56.<em>.</em>:7004 <br>
-37.56.<em>.</em>:7005 <br>
-37.56.<em>.</em>:7006 <br>
-–cluster-replicas 1   // “1” 代表主从比例1：1,前三个为主，后三个为从。</p>
-<pre><code>
-![](./docker部署redis-cluster集群/redis-success.png)
-
-* 连接成功
-
-![](./docker部署redis-cluster集群/redis.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</code></pre>
+<h2 id="创建-redis-容器">创建 redis 容器</h2>
+<ul>
+<li>创建 redis 的配置文件<br>
+在 /home 下新建 redis-cluster 文件夹，然后创建 redis-cluster.tmpl 文件，文件内容如下：</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">port $&#123;PORT&#125;  //redis运行端口号</span><br><span class="line">protected-mode no   //</span><br><span class="line">cluster-enabled yes  //集群模式</span><br><span class="line">cluster-config-file nodes.conf  //redis集群自己维护节点信息</span><br><span class="line">cluster-node-timeout 5000  //超时时间</span><br><span class="line">cluster-announce-ip 37.56.*.*         //自己的ip  </span><br><span class="line">cluster-announce-port $&#123;PORT&#125;  //节点映射端口</span><br><span class="line">cluster-announce-bus-port 1$&#123;PORT&#125; //节点通信端口</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<ul>
+<li>命令查看配置：</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /home/redis-cluster/redis-cluster.tmpl</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在/home/redis-cluster下生成conf和data目标，并生成配置信息<br>
+共生成6个文件夹，从7001到7006，每个文件夹下包含data和conf文件夹，同时conf里面有redis.conf配置文件</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for port in `seq 7001 7006`; do \</span><br><span class="line">mkdir -p ./$&#123;port&#125;/conf \</span><br><span class="line">&amp;&amp; PORT=$&#123;port&#125; envsubst &lt; ./redis-cluster.tmpl &gt; ./$&#123;port&#125;/conf/redis.conf \</span><br><span class="line">&amp;&amp; mkdir -p ./$&#123;port&#125;/data; \</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建6个redis容器<br>
+这里使用 host 网络方式启动容器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for port in `seq 7001 7006`; do \</span><br><span class="line">  docker run -d -ti \</span><br><span class="line">  -v /home/redis-cluster/$&#123;port&#125;/conf/redis.conf:/usr/local/etc/redis/redis.conf \</span><br><span class="line">  -v /home/redis-cluster/$&#123;port&#125;/data:/data \</span><br><span class="line">  --restart always --name redis-$&#123;port&#125; --net host \</span><br><span class="line">  --sysctl net.core.somaxconn=1024 redis redis-server /usr/local/etc/redis/redis.conf; \</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker ps 查看容器</li>
+</ul>
+<p><img src="./docker%E9%83%A8%E7%BD%B2redis-cluster%E9%9B%86%E7%BE%A4/docker-ps.png" alt=""></p>
+<ul>
+<li>其他命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stop name/id</span><br><span class="line">docker rm -f name/id</span><br><span class="line">rm -f 文件夹名</span><br></pre></td></tr></table></figure>
+<h2 id="集群redis-50-安装集群方法">集群(redis 5.0 安装集群方法)</h2>
+<ul>
+<li>进入一个已运行的容器</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis-7001 bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在容器中执行集群命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/redis-cli --cluster create \</span><br><span class="line">37.56.*.*:7001 \</span><br><span class="line">37.56.*.*:7002 \</span><br><span class="line">37.56.*.*:7003 \</span><br><span class="line">37.56.*.*:7004 \</span><br><span class="line">37.56.*.*:7005 \</span><br><span class="line">37.56.*.*:7006 \</span><br><span class="line">--cluster-replicas 1   // &quot;1&quot; 代表主从比例1：1,前三个为主，后三个为从。</span><br></pre></td></tr></table></figure>
+<p><img src="./docker%E9%83%A8%E7%BD%B2redis-cluster%E9%9B%86%E7%BE%A4/redis-success.png" alt=""></p>
+<ul>
+<li>连接成功</li>
+</ul>
+<p><img src="./docker%E9%83%A8%E7%BD%B2redis-cluster%E9%9B%86%E7%BE%A4/redis.png" alt=""></p>
 
                 
 
@@ -434,7 +379,7 @@ docker rm -f name/id</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker部署redis-cluster集群"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">docker&#x90E8;&#x7F72;redis-cluster&#x96C6;&#x7FA4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#主机环境"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E3B;&#x673A;&#x73AF;&#x5883;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装docker"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x5B89;&#x88C5;docker</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker部署redis-cluster集群"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">docker&#x90E8;&#x7F72;redis-cluster&#x96C6;&#x7FA4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#主机环境"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E3B;&#x673A;&#x73AF;&#x5883;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装docker"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x5B89;&#x88C5;docker</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#创建-redis-容器"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">&#x521B;&#x5EFA; redis &#x5BB9;&#x5668;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集群redis-50-安装集群方法"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">&#x96C6;&#x7FA4;(redis 5.0 &#x5B89;&#x88C5;&#x96C6;&#x7FA4;&#x65B9;&#x6CD5;)</span></a></li></ol></li></ol>
         
         </div>
       </aside>
