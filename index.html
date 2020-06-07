@@ -211,6 +211,46 @@
 
 <div class="post-preview">
 
+    <a href="/article/docker部署redis-cluster集群/">
+        <h2 class="post-title">
+                                 
+            docker部署redis-cluster集群
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            docker部署redis-cluster集群
+主机环境
+
+阿里云服务器 ECS ，2核4G，系统：Centos_7_05_64
+Redis 5.0.0 以上
+docker 社区版 version 18.09.0
+
+安装docker
+
+安装所需的软件包
+
+  123sudo yum install -y yum-utils \device-mapper-persistent-data \lv......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-06-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#docker redis-cluster" title="docker redis-cluster">docker redis-cluster</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/article/网络笔记/">
         <h2 class="post-title">
                                  
@@ -554,44 +594,6 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/">
-        <h2 class="post-title">
-                                 
-            Hashtable和ConcurrentHashMap的线程安全问题
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            ConcurrentHashMap的线程安全问题
-
-
-
-分段锁思想：每个线程获得的是每个存储单元的锁，每个存储单元下又有很多table，但是每个单元下的table共用同一把锁(Jdk1.8改进了)！当A线程操作0号单元时，获得的0号锁与2号存储单元无关，因此B线程可以操作2号存储单元，提高了代码效率。
-
-
-
-在Jdk1.8中，采用更加细化分配锁的方式，性能更能提升。
-123456789101......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-03-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread">Hashtable ConcurrentHashMap Thread</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -633,11 +635,11 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
     <div class="tags">
         
             
-            <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
+            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
             
         
             
-            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
+            <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
             
         
             
@@ -649,11 +651,15 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
             
         
             
+            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
+            
+        
+            
             <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
             
         
             
-            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
+            <a href="/tags/#docker redis-cluster" title="docker redis-cluster" rel="1">docker redis-cluster</a>
             
         
             
@@ -661,11 +667,11 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
             
         
             
-            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
+            <a href="/tags/#TCP 网络" title="TCP 网络" rel="1">TCP 网络</a>
             
         
             
-            <a href="/tags/#TCP 网络" title="TCP 网络" rel="1">TCP 网络</a>
+            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
             
         
             
@@ -725,6 +731,10 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
     <ul>
       
         <li>
+          <a href="/article/docker部署redis-cluster集群/">docker部署redis-cluster集群</a>
+        </li>
+      
+        <li>
           <a href="/article/网络笔记/">网络笔记</a>
         </li>
       
@@ -738,10 +748,6 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
       
         <li>
           <a href="/article/Java8之Stream/">Java8之Stream</a>
-        </li>
-      
-        <li>
-          <a href="/article/I-O模型/">I/O模型</a>
         </li>
       
     </ul>
@@ -768,7 +774,7 @@ Java堆：是Java虚拟机管理的最大的内存区，是所有线程可共享
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>

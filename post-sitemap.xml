@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/docker%E9%83%A8%E7%BD%B2redis-cluster%E9%9B%86%E7%BE%A4/</loc>
+        <lastmod>2020-06-07T05:38:11.290Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/</loc>
         <lastmod>2020-05-29T06:47:40.661Z</lastmod>
         <changefreq>weekly</changefreq>

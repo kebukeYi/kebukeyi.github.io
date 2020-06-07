@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          网络笔记 - Future Code
+          docker部署redis-cluster集群 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/网络笔记/">
+    <link rel="canonical" href="http://yoursite.com/article/docker部署redis-cluster集群/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#TCP 网络" title="TCP 网络">TCP 网络</a>
+                              <a class="tag" href="/tags/#docker redis-cluster" title="docker redis-cluster">docker redis-cluster</a>
                             
                         </div>
-                        <h1>网络笔记</h1>
+                        <h1>docker部署redis-cluster集群</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-05-29
+                            2020-06-07
                         </span>
                     </div>
                 
@@ -212,73 +212,163 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="网络笔记">网络笔记</h1>
+                <h1 id="docker部署redis-cluster集群">docker部署redis-cluster集群</h1>
+<h2 id="主机环境">主机环境</h2>
+<ul>
+<li>阿里云服务器 ECS ，2核4G，系统：Centos_7_05_64</li>
+<li>Redis 5.0.0 以上</li>
+<li>docker 社区版 version 18.09.0</li>
+</ul>
+<h2 id="安装docker">安装docker</h2>
+<ul>
+<li>安装所需的软件包</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">device-mapper-persistent-data \</span><br><span class="line">lvm2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用以下命令来设置稳定的存储库</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
 <ul>
 <li>
-<h3 id="tcp-连接建立时为何握手三次">TCP 连接建立时为何握手三次？</h3>
-TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同步序列号，在进行数据传输之前必须进行握手连接。<br>
-其中三次握手是为了尽可能次数少的完成连接工作的次数。</li>
-</ul>
+<p>安装docker ce(docker社区版-必须-版本会新一点)</p>
 <ul>
-<li>
-<h3 id="输入url-会发生什么">输入URL 会发生什么？</h3>
-<ul>
-<li>解析域名<br>
-从本机Host文件、到最近的DNS服务器、途中可经过路由器、交换机、反向路由、正向路由、得到最终服务器地址；然后根据Http请求，建立TCP连接，服务器返回Http相应，浏览器收到相关html、css、js等数据，开始加载DOM树、CSS树和Js渲染，最终展示。</li>
+<li>ocker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。<br>
+通过 uname -r 命令查看你当前的内核版本</li>
+<li>移除旧的版本：</li>
 </ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">            docker-client \</span><br><span class="line">            docker-client-latest \</span><br><span class="line">            docker-common \</span><br><span class="line">            docker-latest \</span><br><span class="line">            docker-latest-logrotate \</span><br><span class="line">            docker-logrotate \</span><br><span class="line">            docker-selinux \</span><br><span class="line">            docker-engine-selinux \</span><br><span class="line">            docker-engine</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更新 yum</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 Docker-ce：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 Docker 后台服务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置docker 开机自启</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看防火墙状态</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   systemctl status firewalld</span><br><span class="line">``` </span><br><span class="line">若当前状态时dead状态，则需要开启防火墙；</span><br></pre></td></tr></table></figure>
+<p>systemctl start firewalld<br>
+systemctl status firewalld 查看firewalld状态，显示running即已开启了<br>
+systemctl stop firewalld 关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 开放需要的端口</span><br></pre></td></tr></table></figure>
+<p>firewall-cmd --permanent --zone=public --add-port=7001-7006/tcp<br>
+firewall-cmd --permanent --zone=public --add-port=17001-17006/tcp<br>
+firewall-cmd --reload  //重新加载配置<br>
+firewall-cmd --permanent --zone=public --list-ports  //查看开放端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 获取 redis 镜像</span><br></pre></td></tr></table></figure>
+<p>docker pull redis<br>
+docker images 查看镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  ![](./docker部署redis-cluster集群/redis-images.png)</span><br><span class="line"></span><br><span class="line">## 创建 redis 容器</span><br><span class="line">* 创建 redis 的配置文件</span><br><span class="line"> 在 /home 下新建 redis-cluster 文件夹，然后创建 redis-cluster.tmpl 文件，文件内容如下：</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ul>
-<li>
-<h3 id="http的长连接和短连接有什么不同">Http的长连接和短连接有什么不同？</h3>
-在HTTP/1.0中默认使用短连接。也就是说，客户端和服务器每进行一次HTTP操作，就建立一次连接，任务结束就中断连接。当客户端浏览器访问的某个HTML或其他类型的Web页中包含有其他的Web资源（如JavaScript文件、图像文件、CSS文件等），每遇到这样一个Web资源，浏览器就会重新建立一个HTTP会话。<br>
-而从HTTP/1.1起，默认使用长连接，用以保持连接特性。使用长连接的HTTP协议，会在响应头加入这行代码： Connection:keep-alive<br>
-在使用长连接的情况下，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，客户端再次访问这个服务器时，会继续使用这一条已经建立的连接。Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。实现长连接需要客户端和服务端都支持长连接。
-<ul>
-<li>
-<p>长连接<br>
-优点：减少握手、减少慢启动、允许HTTP pipelining（HTTP 1.1中支持）的请求及响应模式：、当发生错误时，可以在不关闭连接的情况下进行提示、减少后续请求的响应时间，因为此时不需要建立TCP，也不需要TCP握手等过程；<br>
-缺点：队头阻塞（TCP的天然机制是想尽可能地发送多个数据，但是当传送大文件时，出现中间的包信息接收方没有收到，那么发送端为了保持同步性将又重新发送信息，造成资源浪费和响应时间过长）</p>
-</li>
-<li>
-<p>短连接<br>
-优点：短连接对于服务器来说较为简单，存在的连接都是有用的连接，不需要额外的控制；<br>
-缺点：如果客户端连接频繁，会在tcp的建立和关闭上浪费时间。</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<h3 id="多播何如实现">多播何如实现？</h3>
-</li>
-<li>
-<h3 id="服务器最大并发数是多少">服务器最大并发数是多少？</h3>
-<p>根据TCP四元组（源ip、源端口、目的ip、目的端口），理论上可以连接2^32 * 2^16=2^48个连接，但是从实际中出发，受限于内存、CPU等硬件因素。</p>
-</li>
-<li>
-<h3 id="tcp-udp-何如选择">TCP UDP 何如选择？</h3>
-<ul>
-<li>UDP<br>
-适合车联网发送位置包、视频直播等；</li>
-<li>TCP<br>
-安全文件传输等；</li>
-</ul>
-</li>
-<li>
-<h3 id="tlsssl如何保证信息安全的">TLS/SSL如何保证信息安全的？</h3>
-<ul>
-<li>PKI证书体系</li>
-<li>对称加密算法</li>
-<li>密钥交换协议</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<h3 id="http20协议有哪些优缺点">Http2.0协议有哪些优缺点？</h3>
-或许放弃TCP连接，使用UDP连接。</li>
-</ul>
+<p>port ${PORT}  //redis运行端口号<br>
+protected-mode no   //<br>
+cluster-enabled yes  //集群模式<br>
+cluster-config-file nodes.conf  //redis集群自己维护节点信息<br>
+cluster-node-timeout 5000  //超时时间<br>
+cluster-announce-ip 37.56.<em>.</em>         //自己的ip<br>
+cluster-announce-port ${PORT}  //节点映射端口<br>
+cluster-announce-bus-port 1${PORT} //节点通信端口<br>
+appendonly yes</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 命令查看配置：</span><br></pre></td></tr></table></figure>
+<p>cat /home/redis-cluster/redis-cluster.tmpl</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 在/home/redis-cluster下生成conf和data目标，并生成配置信息</span><br><span class="line">共生成6个文件夹，从7001到7006，每个文件夹下包含data和conf文件夹，同时conf里面有redis.conf配置文件</span><br></pre></td></tr></table></figure>
+<p>for port in <code>seq 7001 7006</code>; do <br>
+mkdir -p ./${port}/conf <br>
+&amp;&amp; PORT=${port} envsubst &lt; ./redis-cluster.tmpl &gt; ./${port}/conf/redis.conf <br>
+&amp;&amp; mkdir -p ./${port}/data; <br>
+done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 创建6个redis容器</span><br><span class="line">这里使用 host 网络方式启动容器</span><br></pre></td></tr></table></figure>
+<p>for port in <code>seq 7001 7006</code>; do <br>
+docker run -d -ti <br>
+-v /home/redis-cluster/${port}/conf/redis.conf:/usr/local/etc/redis/redis.conf <br>
+-v /home/redis-cluster/${port}/data:/data <br>
+–restart always --name redis-${port} --net host <br>
+–sysctl net.core.somaxconn=1024 redis redis-server /usr/local/etc/redis/redis.conf; <br>
+done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* docker ps 查看容器</span><br><span class="line"></span><br><span class="line">![](./docker部署redis-cluster集群/docker-ps.png)</span><br><span class="line"></span><br><span class="line">*  其他命令</span><br></pre></td></tr></table></figure>
+<p>docker stop name/id<br>
+docker rm -f name/id</p>
+<p>rm -f 文件夹名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 集群(redis 5.0 安装集群方法)</span><br><span class="line"> * 进入一个已运行的容器</span><br></pre></td></tr></table></figure>
+<p>docker exec -it redis-7001 bash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 在容器中执行集群命令</span><br></pre></td></tr></table></figure>
+<p>/usr/local/bin/redis-cli --cluster create <br>
+37.56.<em>.</em>:7001 <br>
+37.56.<em>.</em>:7002 <br>
+37.56.<em>.</em>:7003 <br>
+37.56.<em>.</em>:7004 <br>
+37.56.<em>.</em>:7005 <br>
+37.56.<em>.</em>:7006 <br>
+–cluster-replicas 1   // “1” 代表主从比例1：1,前三个为主，后三个为从。</p>
+<pre><code>
+![](./docker部署redis-cluster集群/redis-success.png)
+
+* 连接成功
+
+![](./docker部署redis-cluster集群/redis.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
 
                 
 
@@ -286,13 +376,9 @@ TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同�
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/docker部署redis-cluster集群/" data-toggle="tooltip" data-placement="top" title="docker部署redis-cluster集群">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/浅析内存屏障以及在java中的应用/" data-toggle="tooltip" data-placement="top" title="浅析内存屏障以及在java中的应用">Next Post &rarr;</a>
+                            <a href="/article/网络笔记/" data-toggle="tooltip" data-placement="top" title="网络笔记">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -348,7 +434,7 @@ TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同�
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#网络笔记"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x7F51;&#x7EDC;&#x7B14;&#x8BB0;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-连接建立时为何握手三次"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">TCP &#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x65F6;&#x4E3A;&#x4F55;&#x63E1;&#x624B;&#x4E09;&#x6B21;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#输入url-会发生什么"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">&#x8F93;&#x5165;URL &#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http的长连接和短连接有什么不同"><span class="toc-nav-number">1.0.3.</span> <span class="toc-nav-text">Http&#x7684;&#x957F;&#x8FDE;&#x63A5;&#x548C;&#x77ED;&#x8FDE;&#x63A5;&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x540C;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#多播何如实现"><span class="toc-nav-number">1.0.4.</span> <span class="toc-nav-text">&#x591A;&#x64AD;&#x4F55;&#x5982;&#x5B9E;&#x73B0;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#服务器最大并发数是多少"><span class="toc-nav-number">1.0.5.</span> <span class="toc-nav-text">&#x670D;&#x52A1;&#x5668;&#x6700;&#x5927;&#x5E76;&#x53D1;&#x6570;&#x662F;&#x591A;&#x5C11;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-udp-何如选择"><span class="toc-nav-number">1.0.6.</span> <span class="toc-nav-text">TCP UDP &#x4F55;&#x5982;&#x9009;&#x62E9;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tlsssl如何保证信息安全的"><span class="toc-nav-number">1.0.7.</span> <span class="toc-nav-text">TLS/SSL&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x7684;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http20协议有哪些优缺点"><span class="toc-nav-number">1.0.8.</span> <span class="toc-nav-text">Http2.0&#x534F;&#x8BAE;&#x6709;&#x54EA;&#x4E9B;&#x4F18;&#x7F3A;&#x70B9;&#xFF1F;</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker部署redis-cluster集群"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">docker&#x90E8;&#x7F72;redis-cluster&#x96C6;&#x7FA4;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#主机环境"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E3B;&#x673A;&#x73AF;&#x5883;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装docker"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x5B89;&#x88C5;docker</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -368,7 +454,7 @@ TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同�
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#TCP 网络" title="TCP 网络">TCP 网络</a>
+                          <a class="tag" href="/tags/#docker redis-cluster" title="docker redis-cluster">docker redis-cluster</a>
                         
                     </div>
                 </section>
