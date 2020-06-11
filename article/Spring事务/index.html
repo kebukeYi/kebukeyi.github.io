@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          I/O模型 - Future Code
+          Spring事务 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/I-O模型/">
+    <link rel="canonical" href="http://yoursite.com/article/Spring事务/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#I/O" title="I/O">I/O</a>
+                              <a class="tag" href="/tags/#Spring 事务" title="Spring 事务">Spring 事务</a>
                             
                         </div>
-                        <h1>I/O模型</h1>
+                        <h1>Spring事务</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-03-30
+                            2020-06-10
                         </span>
                     </div>
                 
@@ -212,81 +212,51 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="什么是io">什么是IO</h1>
-<p>我们常说的IO，指的是文件的输入和输出，但是在操作系统层面是如何定义IO的呢？到底什么样的过程可以叫做是一次IO呢？</p>
-<p>拿一次磁盘文件读取为例，我们要读取的文件是存储在磁盘上的，我们的目的是把它读取到内存中。可以把这个步骤简化成把数据从硬件（硬盘）中读取到用户空间中。</p>
-<p>Java中，主要有三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）和 异步IO（AIO）。<br><br>
-Java中提供的IO有关的API，在文件处理的时候，其实依赖操作系统层面的IO操作实现的，对操作系统的各种IO模型的封装。<br><br>
-比如在Linux 2.6以后，Java中NIO和AIO都是通过epoll（多路复用器）来实现的，而在Windows上，AIO是通过IOCP来实现的。</p>
-<h1 id="linux-五种io模型">Linux 五种I/O模型</h1>
-<h2 id="同步io">同步I/O</h2>
-<h3 id="阻塞io模型"><strong>阻塞I/O模型</strong></h3>
-<blockquote>
-<p>阻塞 I/O 是最简单的 I/O 模型，一般表现为进程或线程等待某个条件，如果条件不满足，则一直等下去。条件满足，则进行下一步操作。<br>
-<img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard.png" alt=""></p>
-</blockquote>
-<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/53299DF62229422FB59D48D8E12A1309/3893) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/NYRVxDv0cwrr.png) -->
-<blockquote>
-<p>应用进程通过系统调用 recvfrom 接收数据，但由于内核还未准备好数据报，应用进程就会阻塞住，直到内核准备好数据报，recvfrom 完成数据报复制工作，应用进程才能结束阻塞状态。</p>
-</blockquote>
-<blockquote>
-<p>缺点: 比较耗费时间，比较适合那种对鱼的需求量小的情况（并发低，时效性要求低）。</p>
-</blockquote>
-<p>用户进程发出请求调用内核，内核发现没有数据，用户线程就一直阻塞，<a href="https://www.zhihu.com/search?type=content&amp;q=NIO" target="_blank" rel="noopener">但是这个阻塞是不消耗cpu资源的</a>，随后完成数据拷贝，进程结束。</p>
-<h3 id="非阻塞io模型"><strong>非阻塞I/O模型</strong></h3>
-<blockquote>
-<p>应用进程与内核交互，目的未达到之前，不再一味的等着，而是直接返回。然后通过轮询的方式，不停的去问内核数据准备有没有准备好。如果某一次轮询发现数据已经准备好了，那就把数据拷贝到用户空间中。</p>
-</blockquote>
-<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7AEDD3C214954F2DB69A2B782F7B305E/3895) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/33QxNg1y7J3Q.png) -->
-<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard1.png" alt=""></p>
-<p>应用进程通过 recvfrom 调用不停的去和内核交互，直到内核准备好数据。如果没有准备好，内核会返回error，应用进程在得到error后，过一段时间再发送recvfrom请求。在两次发送请求的时间段，进程可以先做别的事情。</p>
-<blockquote>
-<p>缺点: 还是得循环监看是否存在数据。</p>
-</blockquote>
-<p>用户进程发起请求，内核发现没有数据立即返回结果，这时用户进程不再阻塞等待；不过用户进程会循环询问是否有数据，当内核返回存在数据时，这时用户进程还是得阻塞，等待数据拷贝。</p>
-<h3 id="信号驱动io模型"><strong>信号驱动I/O模型</strong></h3>
-<blockquote>
-<p>应用进程在读取文件时通知内核，如果某个 socket 的某个事件发生时，请向我发一个信号。在收到信号后，信号对应的处理函数会进行后续处理。</p>
-</blockquote>
-<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/7D46384B81804161B9A9EC8FE2A7FA84/3897) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/4tYNMCTerD7l.png) -->
-<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard3.png" alt=""></p>
-<blockquote>
-<p>应用进程预先向内核注册一个信号处理函数，然后用户进程返回，并且不阻塞，当内核数据准备就绪时会发送一个信号给进程，用户进程便在信号处理函数中开始把数据拷贝的用户空间中。</p>
-</blockquote>
-<p>信号驱动是用户进程调用时告诉内核，如果有数据就发信号给我，然后同步阻塞等待数据拷贝，但是这里有一个重点就是 等待信号是异步的 ，最终数据拷贝仍然是同步。</p>
-<h2 id="io复用模型"><strong>I/O复用模型</strong></h2>
-<blockquote>
-<p>多个进程的IO可以注册到同一个管道上，这个管道会统一和内核进行交互。当管道中的某一个请求需要的数据准备好之后，进程再把对应的数据拷贝到用户空间中。</p>
-</blockquote>
-<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/D3A8BFAB8D044EB3905BF589BEA1237B/3899) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/RxQm0YhPQ5EC.png) -->
-<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard6.png" alt=""></p>
-<p>IO多路转接是多了一个select函数，多个进程的IO可以注册到同一个select上，当用户进程调用该select，select会监听所有注册好的IO，如果所有被监听的IO需要的数据都没有准备好时，select调用进程会阻塞。当任意一个IO所需的数据准备好之后，select调用就会返回，然后进程在通过recvfrom来进行数据拷贝。</p>
-<p>这里的IO复用模型，并没有向内核注册信号处理函数，所以，他并不是非阻塞的。进程在发出select后，要等到select监听的所有IO操作中至少有一个需要的数据准备好，才会有返回，并且也需要再次发送请求去进行文件的拷贝。</p>
-<p>用户进程下开启一个线程用来监听所注册的socket,如果所监听的多个socket，有几个发生数据流能立即监听到，然后数据同步拷贝，并且I/O复用有三种模式可选择：select、poll、epoll。<br>
-<a href="https://blog.csdn.net/Monster7559/article/details/97389305" target="_blank" rel="noopener">三种IO复用比较</a></p>
-<h2 id="异步io模型">异步I/O模型</h2>
-<h3 id="异步io">异步I/O</h3>
-<blockquote>
-<p>应用进程把IO请求传给内核后，完全由内核去操作文件拷贝。内核完成相关操作后，会发信号告诉应用进程本次IO已经完成。</p>
-</blockquote>
-<!-- ![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/5856B419891D49968886AAB21BBF00F9/3901) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/WcRNHGdajbOw.png) -->
-<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard7.png" alt=""></p>
-<blockquote>
-<p>用户进程发起aio_read操作之后，给内核传递描述符、缓冲区指针、缓冲区大小等，告诉内核当整个操作完成时，如何通知进程，然后就立刻去做其他事情了。当内核收到aio_read后，会立刻返回，然后内核开始等待数据准备，数据准备好以后，直接把数据拷贝到用户控件，然后再通知进程本次IO已经完成。</p>
-</blockquote>
-<p>下图是几种常见I/O模型的对比：</p>
-<!-- 
-![](https://note.youdao.com/yws/public/resource/c245d0b4cef4ec2f75421bbca2701da1/xmlnote/04E68BB4F96C44D3AA77BA9A3A177D6D/3903) -->
-<!-- ![mark](http://q82b99tjb.bkt.clouddn.com/images/20200331/FELY8FiJqMuU.png) -->
-<p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard8.png" alt="mark"><br>
-借鉴微信文章：<a href="https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg3MjA4MTExMw==&amp;mid=2247484746&amp;idx=1&amp;sn=c0a7f9129d780786cabfcac0a8aa6bb7&amp;source=41#wechat_redirect</a><br><br>
-学习美团文章：<a href="https://www.zhihu.com/search?type=content&amp;q=NIO" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=NIO</a><br><br>
-拓展知秋文章：<a href="https://juejin.im/post/5c2cc075f265da611037298e" target="_blank" rel="noopener">https://juejin.im/post/5c2cc075f265da611037298e</a><br></p>
+                <h2 id="spring-事务">Spring 事务</h2>
+<ul>
+<li>依赖</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.2.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> ``` </span><br><span class="line"></span><br><span class="line"> * 七个事务传播属性</span><br><span class="line">1.  @Transactional(propagation = Propagation.REQUIRED)//支持当前事务，如果当前没有事务，新建一个事务；</span><br><span class="line">2.  @Transactional(propagation = Propagation.SUPPORTS)//有事务则支持，没有则非事务运行；</span><br><span class="line">3. @Transactional(propagation = Propagation.MANDATORY)// 支持当前事务，没有则抛出异常；</span><br><span class="line">4. @Transactional(propagation = Propagation.NEVER)// 以非事务方式运行操作，如果当前存在事务，则抛出异常；</span><br><span class="line">5. @Transactional(propagation = Propagation.NESTED)// 如果当前存在事务，则在嵌套事务内运行；如果当前没有事务，则新建一个事务；</span><br><span class="line">6. @Transactional(propagation = Propagation.REQUIRES_NEW)//新建事务，如果当前存在事务，就把事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行。</span><br><span class="line">7. @Transactional(propagation = Propagation.NOT_SUPPORTED)//以非事务方式运行操作，如果当前存在事务，就把当前事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* 五种隔离级别</span><br><span class="line"></span><br><span class="line">1. ISOLATION_DEFAULT 这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离级别.另外四个与JDBC的隔离级别相对应 </span><br><span class="line"></span><br><span class="line">2. ISOLATION_READ_UNCOMMITTED 这是事务最低的隔离级别，它充许别外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读</span><br><span class="line"></span><br><span class="line">3. ISOLATION_READ_COMMITTED 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。这种事务隔离级别可以避免脏读出现，但是可能会出现不可重复读和幻像读。</span><br><span class="line">4. ISOLATION_REPEATABLE_READ 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。它除了保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。</span><br><span class="line">5. ISOLATION_SERIALIZABLE 这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止脏读，不可重复读外，还避免了幻像读。</span><br><span class="line"></span><br><span class="line">* 查看Mysql数据库默认事务级别</span><br></pre></td></tr></table></figure>
+<p>show variables like ‘%tx_isolation%’;</p>
+<pre><code>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
 
                 
 
@@ -295,12 +265,12 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Java8之Stream/" data-toggle="tooltip" data-placement="top" title="Java8之Stream">&larr; Previous Post</a>
+                            <a href="/article/系统并发锁实现/" data-toggle="tooltip" data-placement="top" title="系统并发锁实现">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Node/" data-toggle="tooltip" data-placement="top" title="Node">Next Post &rarr;</a>
+                            <a href="/article/docker部署redis-cluster集群/" data-toggle="tooltip" data-placement="top" title="docker部署redis-cluster集群">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -356,7 +326,7 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#什么是io"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x4EC0;&#x4E48;&#x662F;IO</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#linux-五种io模型"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Linux &#x4E94;&#x79CD;I/O&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#同步io"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">&#x540C;&#x6B65;I/O</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#阻塞io模型"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text"><strong>&#x963B;&#x585E;I/O&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#非阻塞io模型"><span class="toc-nav-number">2.1.2.</span> <span class="toc-nav-text"><strong>&#x975E;&#x963B;&#x585E;I/O&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#信号驱动io模型"><span class="toc-nav-number">2.1.3.</span> <span class="toc-nav-text"><strong>&#x4FE1;&#x53F7;&#x9A71;&#x52A8;I/O&#x6A21;&#x578B;</strong></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#io复用模型"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><strong>I/O&#x590D;&#x7528;&#x6A21;&#x578B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#异步io模型"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">&#x5F02;&#x6B65;I/O&#x6A21;&#x578B;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异步io"><span class="toc-nav-number">2.3.1.</span> <span class="toc-nav-text">&#x5F02;&#x6B65;I/O</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#spring-事务"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Spring &#x4E8B;&#x52A1;</span></a></li></ol>
         
         </div>
       </aside>
@@ -376,7 +346,7 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#I/O" title="I/O">I/O</a>
+                          <a class="tag" href="/tags/#Spring 事务" title="Spring 事务">Spring 事务</a>
                         
                     </div>
                 </section>
