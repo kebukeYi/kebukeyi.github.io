@@ -88,7 +88,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Spring 事务" title="Spring 事务">Spring 事务</a>
+                              <a class="tag" href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional">Spring 事务 Transactional</a>
                             
                         </div>
                         <h1>Spring事务</h1>
@@ -216,47 +216,155 @@
 <ul>
 <li>依赖</li>
 </ul>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.2.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> ``` </span><br><span class="line"></span><br><span class="line"> * 七个事务传播属性</span><br><span class="line">1.  @Transactional(propagation = Propagation.REQUIRED)//支持当前事务，如果当前没有事务，新建一个事务；</span><br><span class="line">2.  @Transactional(propagation = Propagation.SUPPORTS)//有事务则支持，没有则非事务运行；</span><br><span class="line">3. @Transactional(propagation = Propagation.MANDATORY)// 支持当前事务，没有则抛出异常；</span><br><span class="line">4. @Transactional(propagation = Propagation.NEVER)// 以非事务方式运行操作，如果当前存在事务，则抛出异常；</span><br><span class="line">5. @Transactional(propagation = Propagation.NESTED)// 如果当前存在事务，则在嵌套事务内运行；如果当前没有事务，则新建一个事务；</span><br><span class="line">6. @Transactional(propagation = Propagation.REQUIRES_NEW)//新建事务，如果当前存在事务，就把事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行。</span><br><span class="line">7. @Transactional(propagation = Propagation.NOT_SUPPORTED)//以非事务方式运行操作，如果当前存在事务，就把当前事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* 五种隔离级别</span><br><span class="line"></span><br><span class="line">1. ISOLATION_DEFAULT 这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离级别.另外四个与JDBC的隔离级别相对应 </span><br><span class="line"></span><br><span class="line">2. ISOLATION_READ_UNCOMMITTED 这是事务最低的隔离级别，它充许别外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读</span><br><span class="line"></span><br><span class="line">3. ISOLATION_READ_COMMITTED 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。这种事务隔离级别可以避免脏读出现，但是可能会出现不可重复读和幻像读。</span><br><span class="line">4. ISOLATION_REPEATABLE_READ 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。它除了保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。</span><br><span class="line">5. ISOLATION_SERIALIZABLE 这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止脏读，不可重复读外，还避免了幻像读。</span><br><span class="line"></span><br><span class="line">* 查看Mysql数据库默认事务级别</span><br></pre></td></tr></table></figure>
-<p>show variables like ‘%tx_isolation%’;</p>
-<pre><code>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</code></pre>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.2.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> ``` </span><br><span class="line"></span><br><span class="line"> * 七个事务传播属性</span><br><span class="line">1.  @Transactional(propagation = Propagation.REQUIRED)//支持当前事务，如果当前没有事务，新建一个事务；</span><br><span class="line">① 如果外部方法没有开启事务的话，Propagation.REQUIRED修饰的内部方法会新开启自己的事务，且开启的事务相互独立，互不干扰。</span><br><span class="line">②如果外部方法开启事务并且被Propagation.REQUIRED的话，所有Propagation.REQUIRED修饰的内部方法和外部方法均属于同一事务 ，只要一个方法回滚，整个事务均回滚。</span><br><span class="line">③ 如果我们上面的aMethod()和bMethod()使用的都是PROPAGATION_REQUIRED传播行为的话，两者使用的就是***同一个事务***，只要其中一个方法回滚，整个事务均回滚。</span><br><span class="line">```java</span><br><span class="line"></span><br><span class="line">    Class A &#123;</span><br><span class="line">        @Transactional(propagation=propagation.PROPAGATION_REQUIRED)</span><br><span class="line">        public void aMethod &#123;</span><br><span class="line">            //do something</span><br><span class="line">            B b = new B();</span><br><span class="line">            b.bMethod();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Class B &#123;</span><br><span class="line">        @Transactional(propagation=propagation.PROPAGATION_REQUIRED)</span><br><span class="line">        public void bMethod &#123;</span><br><span class="line">        //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>
+<p>@Transactional(propagation = Propagation.SUPPORTS)//有事务则支持，没有则非事务运行；</p>
+</li>
+<li>
+<p>@Transactional(propagation = Propagation.MANDATORY)// 如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常。（mandatory：强制性）</p>
+</li>
+<li>
+<p>@Transactional(propagation = Propagation.NEVER)// 以非事务方式运行操作，如果当前存在事务，则抛出异常；</p>
+</li>
+<li>
+<p>@Transactional(propagation = Propagation.NESTED)// 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED；<br>
+① 在外部方法未开启事务的情况下Propagation.NESTED和Propagation.REQUIRED作用相同，修饰的内部方法都会新开启自己的事务，且开启的事务相互独立，互不干扰。<br>
+② 如果外部方法开启事务的话，Propagation.NESTED修饰的内部方法属于外部事务的子事务，外部主事务回滚的话，子事务也会回滚，而内部子事务可以单独回滚而不影响外部主事务和其他子事务。<br>
+③ 如果 aMethod() 回滚的话，bMethod()和bMethod2()都要回滚，而bMethod()回滚的话，并不会造成 aMethod() 和bMethod()回滚。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Class A &#123;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation=propagation.PROPAGATION_REQUIRED)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> aMethod &#123;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        b.bMethod();</span><br><span class="line">        b.bMethod2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class B &#123;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation=propagation.PROPAGATION_NESTED)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> bMethod &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation=propagation.PROPAGATION_NESTED)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> bMethod2 &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>@Transactional(propagation = Propagation.REQUIRES_NEW)//新建事务，如果当前存在事务，就把事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行，且开启的事务相互独立，互不干扰。<br>
+① 如果我们上面的bMethod()使用 PROPAGATION_REQUIRES_NEW 事务传播行为修饰，aMethod还是用 PROPAGATION_REQUIRED 修饰的话。如果aMethod()发生异常回滚，bMethod()不会跟着回滚，因为 bMethod()开启了独立的事务。<br>
+② 如果 bMethod()抛出了未被捕获的异常并且这个异常满足B事务回滚规则的话,aMethod()同样也会回滚，因为这个异常被 aMethod()的事务管理机制检测到了。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Class A &#123;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation=propagation.PROPAGATION_REQUIRED)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> aMethod &#123;</span><br><span class="line">        <span class="comment">//do something</span></span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        b.bMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class B &#123;</span><br><span class="line">    <span class="meta">@Transactional</span>(propagation=propagation.REQUIRES_NEW)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> bMethod &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>@Transactional(propagation = Propagation.NOT_SUPPORTED)//以非事务方式运行操作，如果当前存在事务，就把当前事务挂起；执行当前新建事务完成以后，上下文事务恢复再执行。</li>
+</ol>
+<ul>
+<li>五种隔离级别</li>
+</ul>
+<ol>
+<li>
+<p>ISOLATION_DEFAULT 这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离级别.另外四个与JDBC的隔离级别相对应</p>
+</li>
+<li>
+<p>ISOLATION_READ_UNCOMMITTED 这是事务最低的隔离级别，它允许别外一个事务可以读到这个事务未提交的数据。这种隔离级别会产生 <strong><strong>脏读，不可重复读和幻读</strong></strong></p>
+</li>
+<li>
+<p>ISOLATION_READ_COMMITTED 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。这种事务隔离级别可以避免脏读出现，但是可能会出现 <strong><strong>不可重复读和幻读</strong></strong>。</p>
+</li>
+<li>
+<p>ISOLATION_REPEATABLE_READ 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现 <strong><strong>幻读</strong></strong>。它除了保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。</p>
+</li>
+<li>
+<p>ISOLATION_SERIALIZABLE 这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止 <strong><strong>脏读，不可重复读外，还避免了幻读</strong></strong></p>
+</li>
+</ol>
+<ul>
+<li>查看Mysql数据库默认事务级别</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@tx_isolation;</span><br></pre></td></tr></table></figure>
+<h2 id="transactional-应用规则">@Transactional 应用规则</h2>
+<ul>
+<li>@Transactional 只能用在public业务方法上，用在private或者protected修饰的方法后。事务会失效；不会回滚；</li>
+<li>如果这个注解使用在类上的话，表明该注解对该类中所有的 public 方法都生效。</li>
+<li>本地方法this调用，事务依然不会生效；不会回滚；</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>propagation</td>
+<td>事务的传播行为，默认值为 REQUIRED，可选的值在上面介绍过</td>
+</tr>
+<tr>
+<td>isolation</td>
+<td>事务的隔离级别，默认值采用 DEFAULT，可选的值在上面介绍过</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>事务的超时时间，默认值为-1（不会超时）。如果超过该时间限制但事务还没有完成，则自动回滚事务</td>
+</tr>
+<tr>
+<td>readOnly</td>
+<td>指定事务是否为只读事务，默认值为 false</td>
+</tr>
+<tr>
+<td>rollbackFor</td>
+<td>用于指定能够触发事务回滚的异常类型，并且可以指定多个异常类型</td>
+</tr>
+<tr>
+<td>noRollbackFor</td>
+<td>用于指定能够触发事务不回滚的异常类型，并且可以指定多个异常类型</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ_UNCOMMITTED</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>READ_COMMITTED</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>REPEATABLE_READ</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ISOLATION_SERIALIZABLE</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id="事务控制语法">事务控制语法</h2>
+<ol>
+<li>BEGIN 或 START TRANSACTION 显式地开启一个事务；</li>
+<li>COMMIT / COMMIT WORK二者是等价的。提交事务，并使已对数据库进行的所有修改成为永久性的；</li>
+<li>ROLLBACK / ROLLBACK WORK。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改；</li>
+<li>SAVEPOINT identifier 在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT；</li>
+<li>RELEASE SAVEPOINT identifier 删除一个事务的保存点；</li>
+<li>ROLLBACK TO identifier 把事务回滚到标记点；</li>
+<li>SET TRANSACTION 用来设置事务的隔离级别。InnoDB 存储引擎提供事务的隔离级别有READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ 和 SERIALIZABLE</li>
+</ol>
+<h2 id="transactional-运行机制">@Transactional 运行机制</h2>
+<p>如果一个类或者一个类中的 public 方法上被标注@Transactional 注解的话，Spring 容器就会在启动的时候为其创建一个代理类，在调用被@Transactional 注解的 public 方法的时候，实际调用的是，TransactionInterceptor 类中的 invoke()方法。这个方法的作用就是在目标方法之前开启事务，方法执行过程中如果遇到异常的时候回滚事务，方法调用完成之后提交事务。</p>
+<h3 id="失效问题">失效问题</h3>
+<p>若同一类中的其他没有  <strong><strong>@Transactional 注解的方法内部</strong></strong>  调用有 <strong><strong>@Transactional 注解的方法</strong></strong>，有@Transactional 注解的方法的事务会<strong><strong>失效</strong></strong>。<br>
+这是由于Spring AOP代理的原因造成的，因为只有当 @Transactional 注解的方法在类以外被调用的时候，Spring 事务管理才生效。</p>
+<ul>
+<li>MyService 类中的method1()调用method2()就会导致method2()的事务失效。</li>
+<li>解决办法就是避免同一类中自调用或者使用 AspectJ 取代 Spring AOP 代理。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    method2();</span><br><span class="line">    <span class="comment">//......</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//......</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -326,7 +434,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#spring-事务"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Spring &#x4E8B;&#x52A1;</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#spring-事务"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Spring &#x4E8B;&#x52A1;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#transactional-应用规则"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">@Transactional &#x5E94;&#x7528;&#x89C4;&#x5219;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#事务控制语法"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">&#x4E8B;&#x52A1;&#x63A7;&#x5236;&#x8BED;&#x6CD5;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#transactional-运行机制"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">@Transactional &#x8FD0;&#x884C;&#x673A;&#x5236;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#失效问题"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">&#x5931;&#x6548;&#x95EE;&#x9898;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -346,7 +454,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Spring 事务" title="Spring 事务">Spring 事务</a>
+                          <a class="tag" href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional">Spring 事务 Transactional</a>
                         
                     </div>
                 </section>

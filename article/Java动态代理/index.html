@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          About - Future Code
+          Java动态代理 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/about/">
+    <link rel="canonical" href="http://yoursite.com/article/Java动态代理/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -71,8 +71,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/about.jpg')
-            /*page*/
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
         
     }
     
@@ -85,10 +85,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>About</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">走在成为极客的路上</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#动态代理  Java" title="动态代理  Java">动态代理  Java</a>
+                            
+                        </div>
+                        <h1>Java动态代理</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 杨一 on
+                            2020-06-11
+                        </span>
                     </div>
                 
 
@@ -191,260 +199,202 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <h3 id="一句话">一句话</h3>
-<blockquote>
-<p>Just do it !    (翻译：我只是个搞 IT的！哭笑脸)</p>
-</blockquote>
-<h3 id="关于我">关于我</h3>
-<blockquote>
-<p>一个莫名其妙的，喜欢敲代码，喜欢研究技术的，表面上高冷、不苟言笑的，</p>
-<p>偶尔又嬉皮笑脸，偶尔又特立独行的，双重性格的技术爱好者！</p>
-</blockquote>
-<h3 id="兴趣方向">兴趣方向</h3>
-<blockquote>
-<p>容器云（Docker、Kubernetes等）相关生态技术研究。</p>
-</blockquote>
-<h3 id="参与社区">参与社区</h3>
-<blockquote>
-<p>CSDN博客:<a href="http://blog.csdn.net/huwh_" target="_blank" rel="noopener">http://blog.csdn.net/huwh_</a></p>
-<p>Github:<a href="https://github.com/huweihuang" target="_blank" rel="noopener">https://github.com/huweihuang</a></p>
-<p>阿里云栖社区:<a href="https://yq.aliyun.com/u/huweihuang" target="_blank" rel="noopener">https://yq.aliyun.com/u/huweihuang</a></p>
-<p>DockOne社区:<a href="http://dockone.io/people/%E8%83%A1%E4%BC%9F%E7%85%8C" target="_blank" rel="noopener">http://dockone.io/people/胡伟煌</a></p>
-</blockquote>
-<h3 id="联系我">联系我</h3>
-<blockquote>
-<p>Email: <a href="mailto:huweihuang@foxmail.com" target="_blank" rel="noopener">huweihuang@foxmail.com</a></p>
-</blockquote>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                <h2 id="jdk-动态代理">Jdk 动态代理</h2>
+<p>动态代理:是使用反射和字节码的技术,在运行期创建指定接口或类的子类(动态代理)以及其实例对象的技术,通过这个技术可以无侵入性的为代码进行增强;<br>
+Java源文件（.java） -&gt;  Java字节码（.class） -&gt; Class对象 -&gt; 实例对象<br>
+动态代理(内存生成) -&gt;  Java字节码（.class） -&gt; Class对象 -&gt; 实例对象</p>
+<h2 id="cglib-代理">Cglib 代理</h2>
+<p>cGLIB( Code Generation Library)是一个基于ASM的字节码生成库,它允许我们在运行时对字节码进<br>
+行修改和动态生成。CGLB通过继承方式实现代理；<br>
+Enhancer:来指定要代理的目标对象、实际处理代理逻辑的对象,最终通过调用 create0方法得到<br>
+代理对象,对这个对象所有非fna方法的调用都会转发给 MethodInterceptor;<br>
+MethodInterceptor:动态代理对象的方法调用都会转发到 Intercept方法进行增强;</p>
+<hr>
+<p>JDK原生动态代理是Java原生支持的,不需要任何外部依赖,但是它只能基于接口进行代理;</p>
+<p>CGLB通过继承的方式进行代理,无论目标对象有没有实现接口都可以代理,但是无法处理fina的情况。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/系统并发锁实现/" data-toggle="tooltip" data-placement="top" title="系统并发锁实现">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
                 <br>
 
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
                 <!-- require APlayer -->
                 
-                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
-                    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+
+                <!-- duoshuo Share start -->
                 
-                    <div class="aplayer"
-                        data-id="2423410161"
-                        data-server="netease"
-                        data-type="playlist"
-                        data-fixed="false" >
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jdk-动态代理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Jdk &#x52A8;&#x6001;&#x4EE3;&#x7406;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#cglib-代理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Cglib &#x4EE3;&#x7406;</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#动态代理  Java" title="动态代理  Java">动态代理  Java</a>
+                        
                     </div>
+                </section>
                 
 
-                <!-- 如果开启评论功能 -->
+                <!-- Friends Blog -->
                 
-                    <hr>
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
 
                     
-
+                        <li><a href="undefined" target="_blank">undefined</a></li>
                     
-
+                        <li><a href="undefined" target="_blank">undefined</a></li>
                     
-
+                        <li><a href="undefined" target="_blank">undefined</a></li>
                     
-
-                    
-
-                    
-
+                </ul>
                 
             </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
-            
-        
-            
-            <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
-            
-        
-            
-            <a href="/tags/#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
-            
-        
-            
-            <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
-            
-        
-            
-            <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional" rel="1">Spring 事务 Transactional</a>
-            
-        
-            
-            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
-            
-        
-            
-            <a href="/tags/#锁 并发 分布式" title="锁 并发 分布式" rel="1">锁 并发 分布式</a>
-            
-        
-            
-            <a href="/tags/#docker redis-cluster" title="docker redis-cluster" rel="1">docker redis-cluster</a>
-            
-        
-            
-            <a href="/tags/#TCP 网络" title="TCP 网络" rel="1">TCP 网络</a>
-            
-        
-            
-            <a href="/tags/#I/O" title="I/O" rel="1">I/O</a>
-            
-        
-            
-            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
-            
-        
-            
-            <a href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java" rel="1">计算机 原码 反码 补码 Java</a>
-            
-        
-            
-            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
-            
-        
-            
-            <a href="/tags/#Node" title="Node" rel="1">Node</a>
-            
-        
+        </div>
     </div>
-</section>
+</article>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="/img/avatar/ironman.png" />
-        
 
-        
-            <p>Stay hungry,Stay foolish</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
 
-            
 
-            
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/kebukeyi">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
 
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/article/Java动态代理/">Java动态代理</a>
-        </li>
-      
-        <li>
-          <a href="/article/系统并发锁实现/">系统并发锁实现</a>
-        </li>
-      
-        <li>
-          <a href="/article/Spring事务/">Spring事务</a>
-        </li>
-      
-        <li>
-          <a href="/article/docker部署redis-cluster集群/">docker部署redis-cluster集群</a>
-        </li>
-      
-        <li>
-          <a href="/article/网络笔记/">网络笔记</a>
-        </li>
-      
-    </ul>
-  </div>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-        <hr>
-    
-        <!-- Friends Blog -->
 
-<h5>FRIENDS</h5>
-<ul class="list-inline">
-
-    
-        <li><a href="undefined" target="_blank">undefined</a></li>
-    
-        <li><a href="undefined" target="_blank">undefined</a></li>
-    
-        <li><a href="undefined" target="_blank">undefined</a></li>
-    
-</ul>
-
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
-    </div>
-
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
 
 
     <!-- Footer -->
