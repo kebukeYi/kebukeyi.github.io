@@ -88,7 +88,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#锁 并发 分布式" title="锁 并发 分布式">锁 并发 分布式</a>
+                              <a class="tag" href="/tags/#锁 并发 分布式 MySql Redis Zookeeper" title="锁 并发 分布式 MySql Redis Zookeeper">锁 并发 分布式 MySql Redis Zookeeper</a>
                             
                         </div>
                         <h1>系统并发锁实现</h1>
@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -212,7 +212,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="jvm锁">Jvm锁</h2>
+                <h2 id="jvm-锁">Jvm 锁</h2>
 <ul>
 <li>
 <p>synchronized</p>
@@ -246,20 +246,20 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">H2O</span> </span>&#123;</span><br><span class="line">    Semaphore h = <span class="keyword">new</span> Semaphore(<span class="number">2</span>);</span><br><span class="line">    Semaphore o = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">H2O</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hydrogen</span><span class="params">(Runnable releaseHydrogen)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        h.acquire();</span><br><span class="line">        <span class="comment">// releaseHydrogen.run() outputs "H". Do not change or remove this line.</span></span><br><span class="line">        releaseHydrogen.run();</span><br><span class="line">        o.release();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">oxygen</span><span class="params">(Runnable releaseOxygen)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        o.acquire(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">// releaseOxygen.run() outputs "O". Do not change or remove this line.</span></span><br><span class="line">        releaseOxygen.run();</span><br><span class="line">        h.release(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="分布式锁实现">分布式锁实现</h2>
 <ul>
-<li>Mysql</li>
+<li><strong><strong>Mysql</strong></strong></li>
 </ul>
 <ul>
-<li>Redis</li>
+<li><strong><strong>Redis</strong></strong></li>
 </ul>
 <ul>
 <li>
-<p>Zookeeper<br>
+<p><strong><strong>Zookeeper</strong></strong><br>
 使用zookeeper创建临时序列节点来实现分布式锁，大体思路就是创建临时序列节点，找出最小的序列节点，获取分布式锁，程序执行完成之后此序列节点消失，通过watch来监控节点的变化，从剩下的节点的找到最小的序列节点，获取分布式锁，执行相应处理，依次类推……</p>
 <p>因为zk节点唯一的，不能重复，节点类型为临时节点， 一台zk服务器创建成功时候，另外的zk服务器创建节点时候就会报错，该节点已经存在。这时候其他的zk服务器就会开始监听并等待。让这台zk服务器的程序现在执行完毕，释放锁。关闭当前会话。临时节点就会消失，并且事件通知Watcher，其他的就会来创建。<br>
 无论是临时节点还是持久节点：<br>
 ① create /abc_00001 那么下次再次 create /abc  -&gt;  /abc_00002  自动编号；<br>
 ② create /abc   那么下次再次 create /abc -&gt; 报错；</p>
-<p><strong><em><a href="https://github.com/kebukeyi/Netty-RPC" target="_blank" rel="noopener">基于创建节点异常和父子节点相互监听实现的Zk分布式锁</a></em></strong></p>
+<p><strong><strong><a href="https://github.com/kebukeyi/Netty-RPC" target="_blank" rel="noopener">基于 创建节点异常 和 父子顺序首节点监听 实现的Zk分布式锁</a></strong></strong></p>
 </li>
 </ul>
 
@@ -275,7 +275,7 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
                     
                     
                         <li class="next">
-                            <a href="/article/Spring事务/" data-toggle="tooltip" data-placement="top" title="Spring事务">Next Post &rarr;</a>
+                            <a href="/article/Spring事务/" data-toggle="tooltip" data-placement="top" title="Spring 事务">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -331,7 +331,7 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jvm锁"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Jvm&#x9501;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#分布式锁实现"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jvm-锁"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Jvm &#x9501;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#分布式锁实现"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;</span></a></li></ol>
         
         </div>
       </aside>
@@ -351,7 +351,7 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#锁 并发 分布式" title="锁 并发 分布式">锁 并发 分布式</a>
+                          <a class="tag" href="/tags/#锁 并发 分布式 MySql Redis Zookeeper" title="锁 并发 分布式 MySql Redis Zookeeper">锁 并发 分布式 MySql Redis Zookeeper</a>
                         
                     </div>
                 </section>

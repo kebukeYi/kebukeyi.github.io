@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -211,6 +211,103 @@
 
 <div class="post-preview">
 
+    <a href="/article/MySQL/">
+        <h2 class="post-title">
+                                 
+            MySQL
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            MySQL 事务
+
+
+
+隔离级别
+脏读
+不可重复读
+幻读
+
+
+
+
+READ_UNCOMMITTED
+Yes
+Yes
+Yes
+
+
+READ_COMMITTED
+No
+Yes
+Yes
+
+
+REPEATABLE_READ
+No
+No
+Yes
+
+
+ISOLATION_SERIALIZABLE
+No
+No
+No
+
+
+
+脏读：当前事务(A)中可以读到其他事务(B)未提交的数据（脏数据），这种现象是脏读。......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-06-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#MySQL" title="MySQL">MySQL</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/Jedis线程安全/">
+        <h2 class="post-title">
+                                 
+            Jedis线程安全
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Jedis
+Jedis类中有RedisInputStream和RedisOutputStream两个属性，而发送命令和获取返回值都是使用这两个成员变量，显然，这很容易引发多线程问题。测试代码如下：
+123456789101112131415161718public class BadConcurrentJedisTest &#123;    private static final Exec......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-06-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Jedis 线程安全 Redis" title="Jedis 线程安全 Redis">Jedis 线程安全 Redis</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/article/Java动态代理/">
         <h2 class="post-title">
                                  
@@ -252,14 +349,14 @@ Java源文件（.java） -&gt;  Java字节码（.class） -&gt; Class对象 -&gt
             
         </h3>
         <div class="post-content-preview">
-            Jvm锁
+            Jvm 锁
 
 
 synchronized
 
 
 通过synchronized关键字修饰方法或者代码块，可以达到保证共享变量的线程安全问题。
-synchronized关键字，javac在编译时，会生成对应的monitorenter和monitorexit指令分别对应synchronized同步块的进入和退出，有两个monitorexit指令的原因是为了保证抛异常的情况下也能释放锁，所以javac为......
+synchronized关键字，javac在编译时，会生成对应的monitorenter和monitorexit指令分别对应synchronized同步块的进入和退出，有两个monitorexit指令的原因是为了保证抛异常的情况下也能释放锁，所以javac......
         </div>
     </a>
     
@@ -269,7 +366,7 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
         </p>
         <div class="tags">
             
-              <a href="/tags/#锁 并发 分布式" title="锁 并发 分布式">锁 并发 分布式</a>
+              <a href="/tags/#锁 并发 分布式 MySql Redis Zookeeper" title="锁 并发 分布式 MySql Redis Zookeeper">锁 并发 分布式 MySql Redis Zookeeper</a>
             
         </div>
     
@@ -282,7 +379,7 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
     <a href="/article/Spring事务/">
         <h2 class="post-title">
                                  
-            Spring事务
+            Spring 事务
         </h2>
         <h3 class="post-subtitle">
             
@@ -502,79 +599,6 @@ Lambda:匿名函数，可以对一个接口进行非常简洁的实现，但是�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/article/I-O模型/">
-        <h2 class="post-title">
-                                 
-            I/O模型
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            什么是IO
-我们常说的IO，指的是文件的输入和输出，但是在操作系统层面是如何定义IO的呢？到底什么样的过程可以叫做是一次IO呢？
-拿一次磁盘文件读取为例，我们要读取的文件是存储在磁盘上的，我们的目的是把它读取到内存中。可以把这个步骤简化成把数据从硬件（硬盘）中读取到用户空间中。
-Java中，主要有三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）和 异步IO（AIO）。
-Java中......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-03-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#I/O" title="I/O">I/O</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/article/Node/">
-        <h2 class="post-title">
-                                 
-            Node
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Node
-关于JavaScript
-
-node js 不是因为js而产生的。
-最开始选择的是Ruby 不太适合。
-node 选择了 js。
-node 运行环境 RETL，可以直接在命令行写代码。
-
-Ndoe 是什么
-
-是一个基于 Chrome v8 引擎的JavaScript的运行环境。
-使用的是事件驱动、非阻塞式I/O的模型，轻量又高效，高并发性能好；因为一般I/O 输入输出流 都是阻塞式......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-03-29
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Node" title="Node">Node</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -583,7 +607,7 @@ Ndoe 是什么
     
     
         <li class="next">
-            <a href="/archives/2/">Older Posts &rarr;</a>
+            <a href="/page/2/">Older Posts &rarr;</a>
         </li>
     
 </ul>
@@ -616,15 +640,7 @@ Ndoe 是什么
     <div class="tags">
         
             
-            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
-            
-        
-            
-            <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
-            
-        
-            
-            <a href="/tags/#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
+            <a href="/tags/#I/O" title="I/O" rel="1">I/O</a>
             
         
             
@@ -632,15 +648,23 @@ Ndoe 是什么
             
         
             
-            <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional" rel="1">Spring 事务 Transactional</a>
-            
-        
-            
             <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
             
         
             
-            <a href="/tags/#锁 并发 分布式" title="锁 并发 分布式" rel="1">锁 并发 分布式</a>
+            <a href="/tags/#Jedis 线程安全 Redis" title="Jedis 线程安全 Redis" rel="1">Jedis 线程安全 Redis</a>
+            
+        
+            
+            <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
+            
+        
+            
+            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
+            
+        
+            
+            <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional" rel="1">Spring 事务 Transactional</a>
             
         
             
@@ -648,11 +672,15 @@ Ndoe 是什么
             
         
             
-            <a href="/tags/#TCP 网络" title="TCP 网络" rel="1">TCP 网络</a>
+            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
             
         
             
-            <a href="/tags/#I/O" title="I/O" rel="1">I/O</a>
+            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
+            
+        
+            
+            <a href="/tags/#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
             
         
             
@@ -660,11 +688,15 @@ Ndoe 是什么
             
         
             
+            <a href="/tags/#TCP 网络" title="TCP 网络" rel="1">TCP 网络</a>
+            
+        
+            
             <a href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java" rel="1">计算机 原码 反码 补码 Java</a>
             
         
             
-            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
+            <a href="/tags/#锁 并发 分布式 MySql Redis Zookeeper" title="锁 并发 分布式 MySql Redis Zookeeper" rel="1">锁 并发 分布式 MySql Redis Zookeeper</a>
             
         
             
@@ -724,6 +756,14 @@ Ndoe 是什么
     <ul>
       
         <li>
+          <a href="/article/MySQL/">MySQL</a>
+        </li>
+      
+        <li>
+          <a href="/article/Jedis线程安全/">Jedis线程安全</a>
+        </li>
+      
+        <li>
           <a href="/article/Java动态代理/">Java动态代理</a>
         </li>
       
@@ -732,15 +772,7 @@ Ndoe 是什么
         </li>
       
         <li>
-          <a href="/article/Spring事务/">Spring事务</a>
-        </li>
-      
-        <li>
-          <a href="/article/docker部署redis-cluster集群/">docker部署redis-cluster集群</a>
-        </li>
-      
-        <li>
-          <a href="/article/网络笔记/">网络笔记</a>
+          <a href="/article/Spring事务/">Spring 事务</a>
         </li>
       
     </ul>
@@ -767,7 +799,7 @@ Ndoe 是什么
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
