@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -216,10 +216,34 @@
 <ul>
 <li>
 <h3 id="tcp-连接建立时为何握手三次">TCP 连接建立时为何握手三次？</h3>
-TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同步序列号，在进行数据传输之前必须进行握手连接。<br>
-其中三次握手是为了尽可能次数少的完成连接工作的次数。</li>
-</ul>
+<p>TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同步序列号，在进行数据传输之前必须进行握手连接。<br>
+其中三次握手是为了尽可能次数少的完成连接工作的次数。</p>
+</li>
+<li>
+<h3 id="tcp-传输协议">TCP 传输协议</h3>
 <ul>
+<li>
+<p>停止等待协议<br>
+“停止等待”就是每发送完一个分组就停止发送,等待对方的确认。在收到确认后再发送下一个分组。<br>
+① 无差错情况<br>
+② 出现差错<br>
+③ 确认丢失和确认迟到<br>
+④ 信道利用率</p>
+</li>
+<li>
+<p>ARQ 协议<br>
+连续ARQ协议规定,发送方每收到一个确认,就把发送窗口向前滑动一个分组的位置。<br>
+接收方一般都是采用累积确认的方式。这就是说,接收方不必对收到的分组逐个发送确认,而是在收到几个分组后,对按序到达的最后一个分组发送确认,这就表示:到这个分组为止的所有分组都已正确收到了。<br>
+优点：容易实现,即使确认丢失也不必重传。<br>
+缺点：不能向发送方反映出接收方已经正确收到的所有分组的信息，举例：发送了5个数据包，其中丢失了3个数据包，但是服务器只能返回第1个数据包确认号，发送端无法得知 2、3、4、5 数据包的接收信息，因此只能重发 2、3、4、5 数据包。</p>
+</li>
+<li>
+<p>滑动窗口协议<br>
+TCP的滑动窗口是以字节为单位的。为了便于说明滑动窗口的工作原理,我们故意把后面图5-15至图5-18中的字节编号都取得很小。现假定A收到了B发来的确认报文段,其中窗口是20字节,而确认号是31(这表明B期望收到的下一个序号是31,而序号30为止的数据已经收到了)。根据这两个数据,A就构造出自己的发送窗口,如图5-15所示。<br>
+<strong><strong>请注意,B只能对按序收到的数据中的最高序号给出确认！！！</strong></strong>,因此B发送的确认报文段中的确认号仍然是31(即期望收到的序号),而不能是32或33，此时 A 再次发送以31开头的数据。</p>
+</li>
+</ul>
+</li>
 <li>
 <h3 id="输入url-会发生什么">输入URL 会发生什么？</h3>
 <ul>
@@ -230,27 +254,30 @@ TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同�
 </ul>
 <ul>
 <li>
-<h3 id="http的长连接和短连接有什么不同">Http的长连接和短连接有什么不同？</h3>
+<h3 id="http-的长连接和短连接有什么不同">Http 的长连接和短连接有什么不同？</h3>
 在HTTP/1.0中默认使用短连接。也就是说，客户端和服务器每进行一次HTTP操作，就建立一次连接，任务结束就中断连接。当客户端浏览器访问的某个HTML或其他类型的Web页中包含有其他的Web资源（如JavaScript文件、图像文件、CSS文件等），每遇到这样一个Web资源，浏览器就会重新建立一个HTTP会话。<br>
 而从HTTP/1.1起，默认使用长连接，用以保持连接特性。使用长连接的HTTP协议，会在响应头加入这行代码： Connection:keep-alive<br>
 在使用长连接的情况下，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，客户端再次访问这个服务器时，会继续使用这一条已经建立的连接。Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。实现长连接需要客户端和服务端都支持长连接。
 <ul>
-<li>
-<p>长连接<br>
-优点：减少握手、减少慢启动、允许HTTP pipelining（HTTP 1.1中支持）的请求及响应模式：、当发生错误时，可以在不关闭连接的情况下进行提示、减少后续请求的响应时间，因为此时不需要建立TCP，也不需要TCP握手等过程；<br>
-缺点：队头阻塞（TCP的天然机制是想尽可能地发送多个数据，但是当传送大文件时，出现中间的包信息接收方没有收到，那么发送端为了保持同步性将又重新发送信息，造成资源浪费和响应时间过长）</p>
-</li>
-<li>
-<p>短连接<br>
-优点：短连接对于服务器来说较为简单，存在的连接都是有用的连接，不需要额外的控制；<br>
-缺点：如果客户端连接频繁，会在tcp的建立和关闭上浪费时间。</p>
-</li>
+<li>长连接<br>
+<strong><strong>优点</strong></strong> : 减少握手、减少慢启动、允许HTTP pipelining 管道化（HTTP 1.1中支持）的请求及响应模式：、当发生错误时，可以在不关闭连接的情况下进行提示、减少后续请求的响应时间，因为此时不需要建立TCP，也不需要TCP握手等过程；<br>
+<strong><strong>缺点</strong></strong> :  由于管道化发生的 Http 队头阻塞，管道化要求服务端按照请求发送的顺序返回响应（FIFO），原因很简单，HTTP请求和响应并没有序号标识，无法将乱序的响应与请求关联起来。<br>
+客户端需要保持未收到响应的请求，当连接意外中断时，需要重新发送这部分请求。<br>
+只有幂等的请求才能进行管道化，也就是只有GET和HEAD请求才能管道化，否则可能会出现意料之外的结果</li>
 </ul>
 </li>
 </ul>
 <ul>
+<li>短连接<br>
+优点：短连接对于服务器来说较为简单，存在的连接都是有用的连接，不需要额外的控制；<br>
+缺点：如果客户端连接频繁，会在tcp的建立和关闭上浪费时间。</li>
+</ul>
+<ul>
 <li>
 <h3 id="多播何如实现">多播何如实现？</h3>
+<ul>
+<li></li>
+</ul>
 </li>
 <li>
 <h3 id="服务器最大并发数是多少">服务器最大并发数是多少？</h3>
@@ -348,7 +375,7 @@ TCP 提供可靠交付的服务，为了保证信息的准确性，即获得同�
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#网络笔记"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x7F51;&#x7EDC;&#x7B14;&#x8BB0;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-连接建立时为何握手三次"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">TCP &#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x65F6;&#x4E3A;&#x4F55;&#x63E1;&#x624B;&#x4E09;&#x6B21;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#输入url-会发生什么"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">&#x8F93;&#x5165;URL &#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http的长连接和短连接有什么不同"><span class="toc-nav-number">1.0.3.</span> <span class="toc-nav-text">Http&#x7684;&#x957F;&#x8FDE;&#x63A5;&#x548C;&#x77ED;&#x8FDE;&#x63A5;&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x540C;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#多播何如实现"><span class="toc-nav-number">1.0.4.</span> <span class="toc-nav-text">&#x591A;&#x64AD;&#x4F55;&#x5982;&#x5B9E;&#x73B0;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#服务器最大并发数是多少"><span class="toc-nav-number">1.0.5.</span> <span class="toc-nav-text">&#x670D;&#x52A1;&#x5668;&#x6700;&#x5927;&#x5E76;&#x53D1;&#x6570;&#x662F;&#x591A;&#x5C11;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-udp-何如选择"><span class="toc-nav-number">1.0.6.</span> <span class="toc-nav-text">TCP UDP &#x4F55;&#x5982;&#x9009;&#x62E9;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tlsssl如何保证信息安全的"><span class="toc-nav-number">1.0.7.</span> <span class="toc-nav-text">TLS/SSL&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x7684;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http20协议有哪些优缺点"><span class="toc-nav-number">1.0.8.</span> <span class="toc-nav-text">Http2.0&#x534F;&#x8BAE;&#x6709;&#x54EA;&#x4E9B;&#x4F18;&#x7F3A;&#x70B9;&#xFF1F;</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#网络笔记"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x7F51;&#x7EDC;&#x7B14;&#x8BB0;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-连接建立时为何握手三次"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">TCP &#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x65F6;&#x4E3A;&#x4F55;&#x63E1;&#x624B;&#x4E09;&#x6B21;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-传输协议"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">TCP &#x4F20;&#x8F93;&#x534F;&#x8BAE;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#输入url-会发生什么"><span class="toc-nav-number">1.0.3.</span> <span class="toc-nav-text">&#x8F93;&#x5165;URL &#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http-的长连接和短连接有什么不同"><span class="toc-nav-number">1.0.4.</span> <span class="toc-nav-text">Http &#x7684;&#x957F;&#x8FDE;&#x63A5;&#x548C;&#x77ED;&#x8FDE;&#x63A5;&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x540C;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#多播何如实现"><span class="toc-nav-number">1.0.5.</span> <span class="toc-nav-text">&#x591A;&#x64AD;&#x4F55;&#x5982;&#x5B9E;&#x73B0;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#服务器最大并发数是多少"><span class="toc-nav-number">1.0.6.</span> <span class="toc-nav-text">&#x670D;&#x52A1;&#x5668;&#x6700;&#x5927;&#x5E76;&#x53D1;&#x6570;&#x662F;&#x591A;&#x5C11;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tcp-udp-何如选择"><span class="toc-nav-number">1.0.7.</span> <span class="toc-nav-text">TCP UDP &#x4F55;&#x5982;&#x9009;&#x62E9;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#tlsssl如何保证信息安全的"><span class="toc-nav-number">1.0.8.</span> <span class="toc-nav-text">TLS/SSL&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x7684;&#xFF1F;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#http20协议有哪些优缺点"><span class="toc-nav-number">1.0.9.</span> <span class="toc-nav-text">Http2.0&#x534F;&#x8BAE;&#x6709;&#x54EA;&#x4E9B;&#x4F18;&#x7F3A;&#x70B9;&#xFF1F;</span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
