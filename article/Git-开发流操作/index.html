@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          MySQL - Future Code
+          Git 开发流操作 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/MySQL/">
+    <link rel="canonical" href="http://yoursite.com/article/Git-开发流操作/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                              <a class="tag" href="/tags/#git" title="git">git</a>
                             
                         </div>
-                        <h1>MySQL</h1>
+                        <h1>Git 开发流操作</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-06-16
+                            2020-06-23
                         </span>
                     </div>
                 
@@ -212,51 +212,308 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="mysql-事务">MySQL 事务</h2>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>READ_UNCOMMITTED</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>READ_COMMITTED</td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>REPEATABLE_READ</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>ISOLATION_SERIALIZABLE</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<p>脏读：当前事务(A)中可以读到其他事务(B)未提交的数据（脏数据），这种现象是脏读。</p>
-<p>不可重复读：在事务A中先后两次读取同一个数据，两次读取的结果不一样，这种现象称为不可重复读。<br>
-脏读与不可重复读的区别在于：<strong><strong>前者读到的是其他事务未提交的数据，后者读到的是其他事务已提交的数据。</strong></strong></p>
-<p>幻读：在事务A中按照某个条件先后两次查询数据库，两次查询结果的条数不同，这种现象称为幻读。<br>
-不可重复读与幻读的区别可以通俗的理解为：<strong><strong>前者是数据变了，后者是数据的行数变了。</strong></strong></p>
-<h2 id="mvcc">MVCC</h2>
-<p>读已提交 解决 <strong><strong>脏读、不可重复读、幻读</strong></strong> 等问题，使用的是MVCC：MVCC全称Multi-Version Concurrency Control，即多版本的并发控制协议。下面的例子很好的体现了MVCC的特点：在同一时刻，不同的事务读取到的数据可能是不同的(即多版本)——在T5时刻，事务A和事务C可以读取到不同版本的数据。<a href="https://www.jianshu.com/p/bcbeb58963c3" target="_blank" rel="noopener">参考链接</a></p>
-<p>MVCC最大的优点是读不加锁，因此读写不冲突，并发性能好。InnoDB实现MVCC，多个版本的数据可以共存，主要是依靠数据的隐藏列(也可以称之为标记位)和undo log。其中数据的隐藏列包括了该行数据的版本号、删除时间、指向undo log的指针等等；当读取数据时，MySQL可以通过隐藏列判断是否需要回滚并找到回滚需要的undo log，从而实现MVCC；隐藏列的详细格式不再展开。</p>
+                <h2 id="git-开发流操作">Git 开发流操作</h2>
+<p><strong><strong>把有项目代码的文件设置成 Git 仓库来管理：</strong></strong></p>
+<ul>
+<li>git init</li>
+</ul>
+<p><strong><strong>查看当前分支提交操作记录(n4: 就近的4次记录)：</strong></strong></p>
+<ul>
+<li>git log  [–oneline] [–all] [-n4] [–graph]</li>
+</ul>
+<p><strong><strong>查看分支</strong></strong></p>
+<ul>
+<li>git branch -v</li>
+</ul>
+<p><strong><strong>拉取远程分支</strong></strong></p>
+<ul>
+<li>git fetch</li>
+</ul>
+<p><strong><strong>创建新临时分支，基于何处创建分支：</strong></strong></p>
+<ul>
+<li>git checkout -b temp [commit]/[branch]</li>
+</ul>
+<p><strong><strong>Git 自带的图形化界面：</strong></strong></p>
+<ul>
+<li>gitk [-all]</li>
+</ul>
+<p><strong><strong>复原命令(工作目录区和暂且区所有的操作都会被清出掉)：</strong></strong></p>
+<ul>
+<li>git reset --hard</li>
+</ul>
+<p>****改变工作目录区和暂且区的文件名字：</p>
+<ul>
+<li>git mv readme <a href="http://readme.md" target="_blank" rel="noopener">readme.md</a></li>
+</ul>
+<p><strong><strong>Git 的三个对象：Commit、Tree、blob</strong></strong></p>
+<ul>
+<li>每次 Commit 都会生成一个 Commit 对象，这个对象和Tree 对象是一一对应，Tree 对象中保存着当前 Commit 时间点状态的所有文件以及快照；</li>
+<li>查看Commit内容  git cat-file -p [提交Commit记录的hash值]</li>
+<li>查看Tree内容 git cat-file -p [提交Tree记录的hash值]</li>
+<li>查看blob内容 git cat-file -p [提交blob记录的hash值]</li>
+<li>输出内容到文件中 echo “hello,world” &gt; readme</li>
+</ul>
+<p><strong><strong>如何删除不需要的分支：</strong></strong></p>
+<ul>
+<li>git branch -av</li>
+<li>gitk -all</li>
+<li>git branch -D temp</li>
+</ul>
+<p><strong><strong>修改 Commit 的Message,只是修改git log 的Commit记录做变更:</strong></strong></p>
+<ul>
+<li>git commit --amend</li>
+<li>git rebase -i [上次commit的记录值]</li>
+</ul>
+<p><strong><strong>把连续多个 Commit 整理成1个 Commit ：</strong></strong></p>
+<ul>
+<li>git rebase -i [若有首节点的 Commit 的记录值]<br>
+<br><br>
+pick<br>
+<br><br>
+pick &gt; s<br>
+<br><br>
+pick &gt; s<br>
+<br><br>
+pick &gt; s<br>
+<br><br>
+pick</li>
+</ul>
+<p><strong><strong>把间隔多个 Commit 整理成1个 Commit ：</strong></strong></p>
+<ul>
+<li>git rebase -i [首节点的 Commit 的记录值]<br>
+<br><br>
+新建 pick [父节点]<br>
+<br><br>
+pick -&gt; s [另外一个节点]<br>
+<br><br>
+pick  [默认中间节点]</li>
+</ul>
+<p><strong><strong>比较暂存区和HEAD所含的文件的差异？</strong></strong></p>
+<ul>
+<li>git diff --cached</li>
+</ul>
+<p><strong><strong>比较暂存区和工作区所含的文件的差异？</strong></strong></p>
+<ul>
+<li>git diff – [文件名字]</li>
+</ul>
+<p><strong><strong>如何让暂存区的文件回归成工作区(HEAD)一样的(暂存区的文件一律作废)？</strong></strong></p>
+<ul>
+<li>git reset HEAD</li>
+<li>暂存区 使用 reset</li>
+<li>工作区 使用 checkout</li>
+</ul>
+<p><strong><strong>如何让工作区的文件整成暂存区一样的(工作区的文件一律作废)？</strong></strong></p>
+<ul>
+<li>git checkout --文件名</li>
+</ul>
+<p><strong><strong>怎么取消暂存区部分文件的更改（部分文件恢复成HEAD的文件）？</strong></strong></p>
+<ul>
+<li>git reset HEAD – 文件名字 文件名字</li>
+</ul>
+<p><strong><strong>消除最近的几次Commit提交（回接到链中间的节点，慎用）？</strong></strong></p>
+<ul>
+<li>git branch -av</li>
+<li>git log --graph</li>
+<li>git reset --hard 1656563265(commit节点值)</li>
+</ul>
+<p><strong><strong>查看不同的Commit之间的发分支不同？</strong></strong></p>
+<ul>
+<li>git diff temp[gsjdfdb12] master[146dfdsfsfcdzfsd]</li>
+<li>git diff temp master – index.html</li>
+<li></li>
+</ul>
+<p><strong><strong>正确删除文件的方法：</strong></strong></p>
+<ul>
+<li>git rm [-rf] filename</li>
+</ul>
+<p>突发加塞了紧急任务怎么办（需要解决bug,但是手头的记录也得保存起来）？</p>
+<ul>
+<li>git stash</li>
+<li>git stash list</li>
+<li>git stash pop / apply(d堆栈中不会删除)</li>
+</ul>
+<p><strong><strong>如何指定不需要的 Git 管理的文件？</strong></strong></p>
+<ul>
+<li>修改.gitignore 文件</li>
+<li>name加 / 代表name是一个文件，不想此文件下的子文件被管理；但是name是一个文件时，会被管理的；</li>
+<li>name不加 / 文件夹以及子文件夹都不管理以及文件；</li>
+</ul>
+<p><strong><strong>如何Git 仓库备份到本地？</strong></strong></p>
+<ul>
+<li>git clone --baree(不带工作区)  /Users/suling/101-GitRunner/git_learning/ git ya.git</li>
+<li>git clone --bare file: ///Users/suling/101-GitRunner/git_learning/ git zhineng. git</li>
+</ul>
+<p><strong><strong>把本地仓库同步到GitHub ：</strong></strong></p>
+<ul>
+<li>git remote -v</li>
+<li>git remote add origin(名称) <a href="https://www.wfvdv.git" target="_blank" rel="noopener">https://www.wfvdv.git</a></li>
+<li>git fetch origin  master 仅仅是拉下来</li>
+<li>git branch -v [va]远端分支</li>
+<li>git checkout master</li>
+<li>git merge origin/master</li>
+<li>git pull origin master</li>
+</ul>
+<p><strong><strong>不同的人在同一个分支上修改了不同的文件如何处理（远程一个分支，2个git客户端，2个文件）？</strong></strong></p>
+<ul>
+<li>第二个用户操作 （第二个仓库）
+<ul>
+<li>git clone  *****.git [filename]sharegit</li>
+<li>git config --add --local <a href="http://user.name" target="_blank" rel="noopener">user.name</a> ‘git02’ //进入git02用户空间设置用户名，模拟第二个Git客户端</li>
+<li>git config --local -l</li>
+<li>git config --add --local user.email ‘git02@163.com’ * git config --local -l</li>
+<li>vi .git/config    //出现错误可编辑操作</li>
+<li>git branch -av</li>
+<li>git checkout -b [localName]sharegit  [remote]sharegit    // 建立本地分支同时切换分支，与远程分支建立关系。默认clone 会执行remote add</li>
+<li>vi readme</li>
+<li>git add -u</li>
+<li>git status</li>
+<li>git commit -m “git02 add  one readme”</li>
+<li>git push   //省略了origin  本地分支：远程分支</li>
+<li>vi readme   //sdd56s:第二个用户 第二次push</li>
+<li>git add -u</li>
+<li>git commit -m “git02 two add readme”</li>
+<li>git push</li>
+</ul>
+</li>
+<li>第一个用户操作<br>
+* git fetch [remote角色名字]github<br>
+* git branch -v<br>
+* git branch -av<br>
+*<br>
+* git checkout -b [localName]sharegit  [remote]sharegit<br>
+* git branch -av<br>
+* vi index.html<br>
+* git add -u<br>
+* git commit -m “git01 add index.html”<br>
+* gitk --all<br>
+* 第一个人并没有提交 goto:sdd56s(第二个人再次push)<br>
+* git push gihub  //报错 不是fast-forwards<br>
+* git fetch github<br>
+* git branch -av<br>
+* git merge gtihub/sharegit //由于两个人操作的是不同的文件 因此会顺利合并<br>
+* vi readme  //检查readme 文件是否被第二个用户所修改<br>
+* git push github   //再次进行推送</li>
+</ul>
+<p><strong><strong>不同的人修改了同文件的不同区域如何处理？</strong></strong></p>
+<ul>
+<li>第二个用户操作
+<ul>
+<li>git pull</li>
+<li>vi index.html</li>
+<li>git add -u</li>
+<li>git commit -m “add one  index”</li>
+<li>git push</li>
+</ul>
+</li>
+<li>第一个用户操作
+<ul>
+<li>vi index.html</li>
+<li>git add -u</li>
+<li>git commit -m “add one  index”</li>
+<li>git push //出错</li>
+<li>git status</li>
+<li>git fetch</li>
+<li>git push</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>不同的人修改了同文件的同一区域如何处理？</strong></strong></p>
+<ul>
+<li>第二个用户操作
+<ul>
+<li>git pull (fetch+merge)</li>
+<li>vi index.html //相同位置</li>
+<li>git add -u</li>
+<li>git commit -m “add one  index”</li>
+<li>git push  //报错</li>
+<li>git pull  //冲突 报错</li>
+<li>手动处理冲突</li>
+<li>git status //查看是否merge 成功</li>
+<li>git commit -m “Resolved conflict by hand with 4 git commands”</li>
+<li>git status</li>
+<li>git push</li>
+</ul>
+</li>
+<li>第一个用户操作
+<ul>
+<li>git pull (fetch+merge)</li>
+<li>vi index.html  //相同位置</li>
+<li>git add -u</li>
+<li>git commit -m “add one  index”</li>
+<li>git push  //第一个提交的</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>同时修改了文件名字和文件内容，怎么处理？</strong></strong></p>
+<ul>
+<li>第一个用户操作 : 改变文件名字
+<ul>
+<li>git pull</li>
+<li>git mv index.html index.hml</li>
+<li>git commit -am “改变文件名字”</li>
+<li>git push</li>
+</ul>
+</li>
+<li>第二个用户操作： 修改的是（旧）文件下的内容
+<ul>
+<li>vi index.html</li>
+<li>git commit -am “修改内容”</li>
+<li>git push //报错</li>
+<li>git pull  //不用git fetch +merge,直接pull 看git 是否可以智能解决问题（答案是Git自己可以解决）</li>
+<li>ls -al</li>
+<li>vi index.hml</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>多人同时修改了同一个文件名，怎么处理？</strong></strong></p>
+<ul>
+<li>第一个用户操作 : 改变文件名字
+<ul>
+<li>git pull</li>
+<li>git mv index.html index1.hml</li>
+<li>git commit -am “改变文件名字”</li>
+<li>git push</li>
+</ul>
+</li>
+<li>第二个用户操作： 改变文件名字
+<ul>
+<li>git mv index.html index2.hml</li>
+<li>git commit -am “改变文件名字2”</li>
+<li>git push //报错</li>
+<li>git pull //冲突报错</li>
+<li>ls -al   //会出现两个不同的文件</li>
+<li>diff index1.hml index2.hml  //内容相同</li>
+<li>git status //需要手动处理 根据提示命令</li>
+<li>git rm index.html</li>
+<li>git add index2.hml</li>
+<li>git rm index1.hml</li>
+<li>git status</li>
+<li>git commit -m “处理完成”</li>
+<li>git branch -av</li>
+<li>git push</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>禁止向集成环境执行 push -f 操作</strong></strong></p>
+<ul>
+<li>git log --online</li>
+<li>git reset --hard  b3f390c  //重置之前commit 的值</li>
+<li>git push -f origin [远端分支]sharegit</li>
+</ul>
+<p><strong><strong>禁止向集成环境执行变更历史操作</strong></strong></p>
+<ul>
+<li></li>
+</ul>
+<p><strong><strong>master 分支需要回退到 [temp 分支 merge master 分支而形成的节点] 的前一个节点？</strong></strong></p>
+<ul>
+<li>git push -f origin [b3f390c]master</li>
+</ul>
+<p><strong><strong>GitHub 如何搜索开源项目？</strong></strong></p>
+<ul>
+<li>RPC in:readme stars:&gt;1000 filename:.gitlab.ci</li>
+<li>blog start easily in:readme stars:&gt;1000</li>
+<li></li>
+</ul>
 
                 
 
@@ -264,13 +521,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/Git-开发流操作/" data-toggle="tooltip" data-placement="top" title="Git 开发流操作">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/Jedis线程安全/" data-toggle="tooltip" data-placement="top" title="Jedis线程安全">Next Post &rarr;</a>
+                            <a href="/article/MySQL/" data-toggle="tooltip" data-placement="top" title="MySQL">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -326,7 +579,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-事务"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">MySQL &#x4E8B;&#x52A1;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mvcc"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">MVCC</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#git-开发流操作"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Git &#x5F00;&#x53D1;&#x6D41;&#x64CD;&#x4F5C;</span></a></li></ol>
         
         </div>
       </aside>
@@ -346,7 +599,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                          <a class="tag" href="/tags/#git" title="git">git</a>
                         
                     </div>
                 </section>
