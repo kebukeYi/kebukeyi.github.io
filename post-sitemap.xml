@@ -7,6 +7,86 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/Docker/</loc>
+        <lastmod>2020-07-04T00:28:34.649Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Kafka/</loc>
+        <lastmod>2020-07-04T00:28:27.232Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-MVC/</loc>
+        <lastmod>2020-07-04T00:28:12.427Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-Boot/</loc>
+        <lastmod>2020-07-04T00:28:05.675Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Linux/</loc>
+        <lastmod>2020-07-04T00:27:56.055Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-Cloud/</loc>
+        <lastmod>2020-07-04T00:27:39.383Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Dubbo/</loc>
+        <lastmod>2020-07-04T00:27:11.307Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/RocketMq/</loc>
+        <lastmod>2020-07-04T00:27:03.727Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/RabbitMq/</loc>
+        <lastmod>2020-07-04T00:26:55.236Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/zookeeper/</loc>
+        <lastmod>2020-07-04T00:26:45.300Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/Git-%E5%BC%80%E5%8F%91%E6%B5%81%E6%93%8D%E4%BD%9C/</loc>
         <lastmod>2020-06-23T06:48:41.324Z</lastmod>
         <changefreq>weekly</changefreq>
