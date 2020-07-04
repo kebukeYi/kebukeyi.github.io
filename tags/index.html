@@ -141,14 +141,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -198,27 +198,27 @@
             <!-- 标签云 -->
             <div id='tag_cloud' class="tags">
                 
-                    <a href="#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
-                
                     <a href="#git" title="git" rel="1">git</a>
                 
-                    <a href="#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
+                    <a href="#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
                 
                     <a href="#I/O" title="I/O" rel="1">I/O</a>
                 
+                    <a href="#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
+                
                     <a href="#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
                 
-                    <a href="#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
-                
                     <a href="#Stream Java" title="Stream Java" rel="1">Stream Java</a>
+                
+                    <a href="#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
                 
                     <a href="#Jedis 线程安全 Redis" title="Jedis 线程安全 Redis" rel="1">Jedis 线程安全 Redis</a>
                 
                     <a href="#Jvm" title="Jvm" rel="2">Jvm</a>
                 
-                    <a href="#Linux" title="Linux" rel="1">Linux</a>
-                
                     <a href="#MySQL" title="MySQL" rel="1">MySQL</a>
+                
+                    <a href="#Linux" title="Linux" rel="1">Linux</a>
                 
                     <a href="#Node" title="Node" rel="1">Node</a>
                 
@@ -238,6 +238,28 @@
 
             <!-- 标签列表 -->
 
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="git">
+                    <span class="tag-text">git</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Git-开发流操作/">
+                        <h2 class="post-title">
+                            Git 开发流操作
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
             
             <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Java HashMap">
@@ -266,8 +288,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="git">
-                    <span class="tag-text">git</span>
+                <span class="fa fa-tag listing-seperator" id="I/O">
+                    <span class="tag-text">I/O</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -275,9 +297,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/article/Git-开发流操作/">
+                     <a href="/article/I-O模型/">
                         <h2 class="post-title">
-                            Git 开发流操作
+                            I/O模型
                         </h2>
                         
                     </a>
@@ -310,28 +332,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="I/O">
-                    <span class="tag-text">I/O</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/I-O模型/">
-                        <h2 class="post-title">
-                            I/O模型
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Java Lambda">
                     <span class="tag-text">Java Lambda</span>
                 </span>
@@ -354,28 +354,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="动态代理  Java">
-                    <span class="tag-text">动态代理  Java</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Java动态代理/">
-                        <h2 class="post-title">
-                            Java动态代理
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Stream Java">
                     <span class="tag-text">Stream Java</span>
                 </span>
@@ -388,6 +366,28 @@
                      <a href="/article/Java8之Stream/">
                         <h2 class="post-title">
                             Java8之Stream
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="动态代理  Java">
+                    <span class="tag-text">动态代理  Java</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Java动态代理/">
+                        <h2 class="post-title">
+                            Java动态代理
                         </h2>
                         
                     </a>
@@ -457,28 +457,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Linux">
-                    <span class="tag-text">Linux</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/Linux/">
-                        <h2 class="post-title">
-                            Linux
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="MySQL">
                     <span class="tag-text">MySQL</span>
                 </span>
@@ -491,6 +469,28 @@
                      <a href="/article/MySQL/">
                         <h2 class="post-title">
                             MySQL
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Linux">
+                    <span class="tag-text">Linux</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/article/Linux/">
+                        <h2 class="post-title">
+                            Linux
                         </h2>
                         
                     </a>
