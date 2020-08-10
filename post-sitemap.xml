@@ -8,7 +8,23 @@
 
     <url>
         <loc>http://yoursite.com/article/Linux/</loc>
-        <lastmod>2020-07-04T01:05:10.135Z</lastmod>
+        <lastmod>2020-08-10T14:52:31.176Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Shell/</loc>
+        <lastmod>2020-07-09T01:05:28.131Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Tomcat%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
+        <lastmod>2020-07-06T14:17:30.841Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          HashMap原理 - Future Code
+          Shell - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/HashMap原理/">
+    <link rel="canonical" href="http://yoursite.com/article/Shell/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,12 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Java HashMap" title="Java HashMap">Java HashMap</a>
-                            
                         </div>
-                        <h1>HashMap原理</h1>
-                        <h2 class="subheading">HashMap</h2>
+                        <h1>Shell</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-03-26
+                            2020-07-09
                         </span>
                     </div>
                 
@@ -212,35 +210,17 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="hashmap底层原理">HashMap底层原理</h1>
-<h2 id="特点">特点</h2>
-<ol>
-<li>快速存储</li>
-<li>快速查找 时间复杂度O(1)</li>
-<li>可伸缩</li>
-</ol>
-<h2 id="数据结构">数据结构</h2>
-<ol>
-<li>HashMap 默认是16长度。</li>
-<li>hash冲突：不同的对象算出来的数组下标相同。</li>
-<li>存储结构为：数组、链表、红黑树(Jdk1.8)，当解决hash冲突的单向列表长度到达8时，采用红黑树存储。</li>
-<li>hash算法：任何对象都有hashcode，hash值=hashCode^(hashCode&gt;&gt;&gt;16),当右移16位后再与自己做异或运算。</li>
-<li>数组下标：hashCode&amp;（16-1）=hash%16 。</li>
-<li>HashMap扩容：到达3/4时 自动扩容2倍（16*2）。</li>
-</ol>
-<hr>
-<p><img src="./HashMap%E5%8E%9F%E7%90%86/clipboard.png" alt=""></p>
-
+                
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/Hashtable和ConcurrentHashMap的线程安全问题/" data-toggle="tooltip" data-placement="top" title="Hashtable和ConcurrentHashMap的线程安全问题">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/article/Tomcat的线程池/" data-toggle="tooltip" data-placement="top" title="Tomcat的线程池">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -295,7 +275,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#hashmap底层原理"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">HashMap&#x5E95;&#x5C42;&#x539F;&#x7406;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#特点"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x7279;&#x70B9;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据结构"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x6570;&#x636E;&#x7ED3;&#x6784;</span></a></li></ol></li></ol>
+          <ol class="nav">none</ol>
         
         </div>
       </aside>
@@ -315,8 +295,6 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Java HashMap" title="Java HashMap">Java HashMap</a>
-                        
                     </div>
                 </section>
                 

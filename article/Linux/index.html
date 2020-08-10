@@ -149,14 +149,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,6 +213,63 @@
                 post-container">
 
                 <h1 id="linux">Linux</h1>
+<p><strong><strong>远程拷贝文件命令</strong></strong><br>
+* scp temp.txt 192.168.211.125:/usr/local/server/mq/</p>
+<p><strong><strong>vmstat 是一款指定采样周期和次数的功能性监测工具，我们可以使用它监控进程上下文切换的情况。</strong></strong></p>
+<ul>
+<li>vmstat 1 3 命令行代表每秒收集一次性能指标，总共获取 3 次。
+<ul>
+<li>procs<br>
+r：等待运行的进程数<br>
+b：处于非中断睡眠状态的进程数</li>
+<li>memory<br>
+swpd：虚拟内存使用情况<br>
+free：空闲的内存<br>
+buff：用来作为缓冲的内存数<br>
+cache：缓存大小</li>
+<li>swap<br>
+si：从磁盘交换到内存的交换页数量<br>
+so：从内存交换到磁盘的交换页数量</li>
+<li>io<br>
+bi：发送到快设备的块数<br>
+bo：从块设备接收到的块数</li>
+<li>system<br>
+in：每秒中断数<br>
+cs：每秒上下文切换次数</li>
+<li>cpu<br>
+us：用户 CPU 使用事件<br>
+sy：内核 CPU 系统使用时间<br>
+id：空闲时间<br>
+wa：等待 I/O 时间<br>
+st：运行虚拟机窃取的时间</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>pidstat 命令就可以帮助我们监测到具体线程的上下文切换。</strong></strong></p>
+<ul>
+<li>pidstat -w -p pid
+<ul>
+<li>-u：默认参数，显示各个进程的 cpu 使用情况；</li>
+<li>-r：显示各个进程的内存使用情况；</li>
+<li>-d：显示各个进程的 I/O 使用情况；</li>
+<li>-w：显示每个进程的上下文切换情况；</li>
+<li>-p：指定进程号；</li>
+<li>-t：显示进程中线程的统计信息</li>
+</ul>
+</li>
+</ul>
+<p><strong><strong>jstack 命令查看线程堆栈的运行情况</strong></strong></p>
+<ul>
+<li>jstack 最常用的功能就是使用 jstack pid 命令查看线程堆栈信息，通常是结合 pidstat -p pid -t 一起查看具体线程的状态，也经常用来排查一些死锁的异常。</li>
+<li>jstack 16079 &gt; /usr/dump 将线程堆栈信息日志 dump 下来</li>
+</ul>
+<p><strong><strong>查看内存：free  free -g(GB)  free -m(MB)</strong></strong></p>
+<p><strong><strong>TCP 的连接状态查看，在 Linux 可以通过 netstat -napt 命令查看。</strong></strong></p>
+<p><strong><strong>查看内存：free  free -g(GB)  free -m(MB)</strong></strong></p>
+<p><strong><strong>硬盘：df   df -h    pidstat -d 3 -p 1057  磁盘占用情况</strong></strong></p>
+<p><strong><strong>磁盘io: iostat   -xdk 2 3</strong></strong></p>
+<p><strong><strong>网络io :  ifstat</strong></strong></p>
+<p><strong><strong>整机:top    负载均衡  load average: 0.00, 0.01, 0.05</strong></strong></p>
 
                 
 
