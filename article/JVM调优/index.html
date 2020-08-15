@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          MySQL - Future Code
+          JVM调优 - Future Code
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/article/MySQL/">
+    <link rel="canonical" href="http://yoursite.com/article/JVM调优/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                              <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
                             
                         </div>
-                        <h1>MySQL</h1>
+                        <h1>JVM调优</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨一 on
-                            2020-06-16
+                            2020-08-11
                         </span>
                     </div>
                 
@@ -212,62 +212,78 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="mysql-事务">MySQL 事务</h2>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>READ_UNCOMMITTED</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>READ_COMMITTED（RC）</td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>REPEATABLE_READ （RR）</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>ISOLATION_SERIALIZABLE</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<p>脏读：当前事务(A)中可以读到其他事务(B)未提交的数据（脏数据），这种现象是脏读。</p>
-<p>不可重复读：在事务A中先后两次读取同一个数据，两次读取的结果不一样，这种现象称为不可重复读。<br>
-脏读与不可重复读的区别在于：<strong><strong>前者读到的是其他事务未提交的数据，后者读到的是其他事务已提交的数据。</strong></strong></p>
-<p>幻读：在事务A中按照某个条件先后两次查询数据库，两次查询结果的条数不同，这种现象称为幻读。<br>
-不可重复读与幻读的区别可以通俗的理解为：<strong><strong>前者是数据变了，后者是数据的行数变了。</strong></strong></p>
-<h2 id="行锁">行锁</h2>
+                <h2 id="jvm实战">Jvm实战</h2>
+<p><strong><strong>GC Root对象的包括如下几种：</strong></strong></p>
+<ol>
+<li>Java虚拟机栈中的引用的对象 ；</li>
+<li>方法区中的类静态属性引用的对象 ；</li>
+<li>方法区中的常量引用的对象 ；</li>
+<li>本地方法栈中JNI的引用的对象。</li>
+</ol>
 <ul>
-<li>record lock  是专门对索引项加锁</li>
-<li>gap lock 是对索引项之间的间隙加锁</li>
-<li>next-key lock 则是前面两种的组合，对索引项以其之间的间隙加锁</li>
+<li>而堆中的对象在正常情况下，一般是通过常量、全局变量、静态变量等间接引用堆中的对象，所以这些可以作为GC Root。</li>
 </ul>
-<h2 id="mvcc">MVCC</h2>
-<p>InnoDB 中的 <strong><strong>RC 和 RR</strong></strong> 隔离事务是基于多版本并发控制（MVVC）实现高性能事务。一旦数据被加上排他锁，其他事务将无法加入共享锁，且处于阻塞等待状态，如果一张表有大量的请求，这样的性能将是无法支持的。</p>
-<p>读已提交 解决 <strong><strong>脏读、不可重复读、幻读</strong></strong> 等问题，使用的是MVCC：MVCC全称Multi-Version Concurrency Control，即多版本的并发控制协议。下面的例子很好的体现了MVCC的特点：在同一时刻，不同的事务读取到的数据可能是不同的(即多版本)——在T5时刻，事务A和事务C可以读取到不同版本的数据。<a href="https://www.jianshu.com/p/bcbeb58963c3" target="_blank" rel="noopener">参考链接</a></p>
-<p>MVCC最大的优点是读不加锁，因此读写不冲突，并发性能好。InnoDB实现MVCC，多个版本的数据可以共存，主要是依靠数据的隐藏列(也可以称之为标记位)和undo log。其中数据的隐藏列包括了该行数据的版本号、删除时间、指向undo log的指针等等；当读取数据时，MySQL可以通过隐藏列判断是否需要回滚并找到回滚需要的undo log，从而实现MVCC。</p>
+<p><strong><strong>Minor gc是否会导致Stop The World(STW)？</strong></strong></p>
 <ul>
-<li>binlog + redo log 两阶段提交保证持久性</li>
-<li>事务的回滚机制 保证原子性 要么全部提交成功 要么回滚</li>
-<li>undo log + MVCC 保证一致性 事务开始和结束的过程不会其它事务看到 为了并发可以适当破坏一致性</li>
+<li>不管什么GC，都会发送stop the world，区别是发生的时间长短。而这个时间跟垃圾收集器又有关系，Serial、PartNew、Parallel Scavenge收集器无论是串行还是并行，都会挂起用户线程，而CMS和G1在并发标记时，是不会挂起用户线程，但其他时候一样会挂起用户线程，stop the world的时间相对来说小很多了。</li>
+</ul>
+<p><strong><strong>Major gc什么时候会发生，它和Full gc的区别是什么？</strong></strong></p>
+<ul>
+<li>一次full gc将会对年轻代、老年代以及元空间、堆外内存进行垃圾回收。而触发Full GC的原因有很多：<br>
+a、当年轻代晋升到老年代的对象大小比目前老年代剩余的空间大小还要大时，此时会触发Full GC；<br>
+b、当老年代的空间使用率超过某阈值时，此时会触发Full GC;<br>
+c、当元空间不足时（JDK1.7永久代不足），也会触发Full GC;<br>
+d、当调用System.gc()也会安排一次Full GC;</li>
+</ul>
+<p><strong><strong>查看GC日志</strong></strong><br>
+-XX:+PrintGC 输出 GC 日志<br>
+-XX:+PrintGCDetails 输出 GC 的详细日志<br>
+-XX:+PrintGCTimeStamps 输出 GC 的时间戳（以基准时间的形式）<br>
+-XX:+PrintGCDateStamps 输出 GC 的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）<br>
+-XX:+PrintHeapAtGC 在进行 GC 的前后打印出堆的信息<br>
+-Xloggc:…/logs/gc.log 日志文件的输出路径<br>
+-XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:./gclogs</p>
+<p><strong><strong>JVM参数</strong></strong></p>
+<ul>
+<li>-XX:InitialTenuringThreshol//对象年龄计数器最小值</li>
+<li>-XX:MaxTenuringThreshold  //对象年龄计数器最大值15</li>
+<li>-XX:PetenureSizeThreshold //设置直接被分配到老年代的最大对象</li>
+<li>-XX:+PrintFlagsFinal -version [| grep HeapSize]  //查看堆内存配置的默认值</li>
+<li>–XX:NewRatio= //设置青年代和老年代</li>
+<li>-XX:+PrintTenuringDistribution //显示每次Minor GC时Survivor区中各个年龄段的对象的大小。</li>
+<li>-XX:SurvivorRatio=4 //设置Eden和To Survivor、From Survivor 比例</li>
+<li>-XX:+UseAdaptiveSizePolicy    JDK1.8默认开启,动态调整 Java 堆中各个区域的大小以及进入老年代的年龄</li>
+<li>java -jar -Xms1000m -Xmx4000m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof -Xms1g -Xmx1g -XX:+PrintGCTimeStamps -XX:+PrintGCDetails -Xloggc:/tmp/heapTest.log heapTest-0.0.1-SNAPSHOT.jar  //开启堆内存异常日志</li>
+</ul>
+<p><strong><strong>JDK命令</strong></strong></p>
+<ul>
+<li>jps -l</li>
+<li>ps -ef|grep java</li>
+<li>jstack 最常用的功能就是使用 jstack pid 命令查看线程堆栈信息，通常是结合 pidstat -p pid -t 一起查看具体线程的状态，也经常用来排查一些死锁的异常。</li>
+<li>jstack 16079 &gt; /usr/dump 将线程堆栈信息日志 dump 下来</li>
+<li>jstat 可以监测 Java 应用程序的实时运行情况，包括堆内存信息以及垃圾回收信息。</li>
+<li>jmap 来查看堆内存初始化配置信息以及堆内存的使用情况</li>
+<li>jmap -heap [pid]</li>
+</ul>
+<p><strong><strong>GC调优策略</strong></strong></p>
+<ul>
+<li>降低 Minor GC 频率
+<ul>
+<li>通常情况下，由于新生代空间较小，Eden 区很快被填满，就会导致频繁 Minor GC，因此我们可以通过增大新生代空间来降低 Minor GC 的频率。</li>
+<li>复制对象的成本要远高于扫描成本。</li>
+</ul>
+</li>
+<li>降低 Full GC 的频率
+<ul>
+<li>频繁的 Full GC 会带来上下文切换，增加系统的性能开销。</li>
+<li>减少创建大对象</li>
+<li>增大堆内存空间</li>
+</ul>
+</li>
+<li>选择合适的 GC 回收器</li>
+<li>要求每次操作的响应时间必须在 500ms 以内。这个时候我们一般会选择响应速度较快的 GC 回收器，CMS（Concurrent Mark Sweep）回收器和 G1 回收器都是不错的选择。</li>
+<li>对系统吞吐量有要求时，就可以选择 Parallel Scavenge 回收器来提高系统的吞吐量。</li>
+<li>CMS 和 G1 回收器的响应速度快，Parallel Scavenge 回收器的吞吐量高。</li>
 </ul>
 
                 
@@ -276,13 +292,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/Git-开发流操作/" data-toggle="tooltip" data-placement="top" title="Git 开发流操作">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/Jedis线程安全/" data-toggle="tooltip" data-placement="top" title="Jedis线程安全">Next Post &rarr;</a>
+                            <a href="/article/Shell/" data-toggle="tooltip" data-placement="top" title="Shell">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -338,7 +350,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-事务"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">MySQL &#x4E8B;&#x52A1;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#行锁"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x884C;&#x9501;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mvcc"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">MVCC</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jvm实战"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Jvm&#x5B9E;&#x6218;</span></a></li></ol>
         
         </div>
       </aside>
@@ -358,7 +370,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#MySQL" title="MySQL">MySQL</a>
+                          <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
                         
                     </div>
                 </section>

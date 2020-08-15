@@ -213,63 +213,174 @@
                 post-container">
 
                 <h1 id="linux">Linux</h1>
-<p><strong><strong>远程拷贝文件命令</strong></strong><br>
-* scp temp.txt 192.168.211.125:/usr/local/server/mq/</p>
-<p><strong><strong>vmstat 是一款指定采样周期和次数的功能性监测工具，我们可以使用它监控进程上下文切换的情况。</strong></strong></p>
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>属主权限</th>
+<th>属组权限</th>
+<th>其他用户权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1 2 3</td>
+<td>4 5 6</td>
+<td>7 8 9</td>
+</tr>
+<tr>
+<td>d 目录</td>
+<td>r w x</td>
+<td>r w x</td>
+<td>r w x</td>
+</tr>
+<tr>
+<td>- 文件</td>
+<td>r w x</td>
+<td>r - x</td>
+<td>r - x</td>
+</tr>
+<tr>
+<td>l 链接文档</td>
+<td>r w x</td>
+<td>r w x</td>
+<td>r w x</td>
+</tr>
+<tr>
+<td>b 装置文件里面的可供储存的接口设备(可随机存取装置)；</td>
+<td>r w x</td>
+<td>r w x</td>
+<td>r w x</td>
+</tr>
+<tr>
+<td>c 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</td>
+<td>r w x</td>
+<td>r w x</td>
+<td>r w x</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>操作文件</strong></p>
 <ul>
-<li>vmstat 1 3 命令行代表每秒收集一次性能指标，总共获取 3 次。
+<li>cat</li>
+<li>more  分页展示</li>
+<li>n yy+p 快速复制n行数</li>
+<li>G 快速到底</li>
+<li>gg 快速到顶</li>
+<li>head -3 1.txt</li>
+<li>wc 1.txt
 <ul>
-<li>procs<br>
-r：等待运行的进程数<br>
-b：处于非中断睡眠状态的进程数</li>
-<li>memory<br>
-swpd：虚拟内存使用情况<br>
-free：空闲的内存<br>
-buff：用来作为缓冲的内存数<br>
-cache：缓存大小</li>
-<li>swap<br>
-si：从磁盘交换到内存的交换页数量<br>
-so：从内存交换到磁盘的交换页数量</li>
-<li>io<br>
-bi：发送到快设备的块数<br>
-bo：从块设备接收到的块数</li>
-<li>system<br>
-in：每秒中断数<br>
-cs：每秒上下文切换次数</li>
-<li>cpu<br>
-us：用户 CPU 使用事件<br>
-sy：内核 CPU 系统使用时间<br>
-id：空闲时间<br>
-wa：等待 I/O 时间<br>
-st：运行虚拟机窃取的时间</li>
+<li>-m 统计文本字数</li>
+<li>-w 单词数量</li>
+<li>-l 文本行数</li>
 </ul>
 </li>
-</ul>
-<p><strong><strong>pidstat 命令就可以帮助我们监测到具体线程的上下文切换。</strong></strong></p>
+<li>文件合并和重定向
 <ul>
-<li>pidstat -w -p pid
-<ul>
-<li>-u：默认参数，显示各个进程的 cpu 使用情况；</li>
-<li>-r：显示各个进程的内存使用情况；</li>
-<li>-d：显示各个进程的 I/O 使用情况；</li>
-<li>-w：显示每个进程的上下文切换情况；</li>
-<li>-p：指定进程号；</li>
-<li>-t：显示进程中线程的统计信息</li>
+<li>cat 1.txt&gt; 2.txt  //把文件1的内容写到2中去</li>
+<li>cat 1.txt 2.txt  &gt; 3.txt  //文件合并</li>
+<li>cat &gt; 3.txt //输入信息</li>
+<li>cat &gt;&gt;3.txt //录入追加信息</li>
+<li>[root] &gt; 4.txt //重新定向输出的内容  或者快速清理文件内容</li>
+<li>find /root -name run.config  指定目录寻找文件</li>
+<li>gzip 1.txt</li>
+<li>gzip -d 1.txt.gz</li>
+<li>bzip2 1.txt</li>
+<li>bzip2 -d 1.txt.bz2</li>
+<li>tar -af all.tar 1.txt 2.txt //合并打包</li>
 </ul>
 </li>
+<li>增加权限</li>
+<li>chmod u+x  //给当前用户增加执行权限</li>
+<li>chmod o+r java1907 //让其他组可以读</li>
 </ul>
-<p><strong><strong>jstack 命令查看线程堆栈的运行情况</strong></strong></p>
-<ul>
-<li>jstack 最常用的功能就是使用 jstack pid 命令查看线程堆栈信息，通常是结合 pidstat -p pid -t 一起查看具体线程的状态，也经常用来排查一些死锁的异常。</li>
-<li>jstack 16079 &gt; /usr/dump 将线程堆栈信息日志 dump 下来</li>
-</ul>
-<p><strong><strong>查看内存：free  free -g(GB)  free -m(MB)</strong></strong></p>
-<p><strong><strong>TCP 的连接状态查看，在 Linux 可以通过 netstat -napt 命令查看。</strong></strong></p>
-<p><strong><strong>查看内存：free  free -g(GB)  free -m(MB)</strong></strong></p>
-<p><strong><strong>硬盘：df   df -h    pidstat -d 3 -p 1057  磁盘占用情况</strong></strong></p>
-<p><strong><strong>磁盘io: iostat   -xdk 2 3</strong></strong></p>
-<p><strong><strong>网络io :  ifstat</strong></strong></p>
-<p><strong><strong>整机:top    负载均衡  load average: 0.00, 0.01, 0.05</strong></strong></p>
+<pre><code>**管道命令**
+* command1 | command2 //命令1的结果作为命令的输入
+* ps -aux 
+* ps -aux | grep java
+
+**用户**
+* groupadd superjava  //添加组
+* vim /etc/group //查看组
+* useradd -g superjava1(组名) java1574
+
+**关机**
+ * shutdown //系统 关机
+    * -r 关机后立即重启
+    * -h 关机后不重新启动
+    * shutdown -h now  立马关机
+    * shutdown -r  now 立马重启
+
+
+
+
+
+
+**远程拷贝文件命令**
+    * scp temp.txt 192.168.211.125:/usr/local/server/mq/
+
+
+
+
+**vmstat 是一款指定采样周期和次数的功能性监测工具，我们可以使用它监控进程上下文切换的情况**
+* vmstat 1 3 命令行代表每秒收集一次性能指标，总共获取 3 次。
+    * procs
+r：等待运行的进程数
+b：处于非中断睡眠状态的进程数
+    * memory
+swpd：虚拟内存使用情况
+free：空闲的内存
+buff：用来作为缓冲的内存数
+cache：缓存大小
+    * swap
+si：从磁盘交换到内存的交换页数量
+so：从内存交换到磁盘的交换页数量
+    * io
+bi：发送到快设备的块数
+bo：从块设备接收到的块数
+    * system
+in：每秒中断数
+cs：每秒上下文切换次数
+    * cpu
+us：用户 CPU 使用事件
+sy：内核 CPU 系统使用时间
+id：空闲时间
+wa：等待 I/O 时间
+st：运行虚拟机窃取的时间
+
+**pidstat 命令就可以帮助我们监测到具体线程的上下文切换**
+* jps -l + pidstat -w -p pid   
+    *  -u：默认参数，显示各个进程的 cpu 使用情况；
+    * -r：显示各个进程的内存使用情况；
+    * -d：显示各个进程的 I/O 使用情况；
+    * -w：显示每个进程的上下文切换情况；
+    * -p：指定进程号；
+    * -t：显示进程中线程的统计信息 
+* yum install sysstat 
+
+**jstack 命令查看线程堆栈的运行情况**
+* jstack 最常用的功能就是使用 jstack pid 命令查看线程堆栈信息，通常是结合 pidstat -p pid -t 一起查看具体线程的状态，也经常用来排查一些死锁的异常。
+*  jstack 16079 &gt; /usr/dump 将线程堆栈信息日志 dump 下来
+
+
+**查看内存：free  free -g(GB)  free -m(MB)**
+
+**TCP 的连接状态查看，在 Linux 可以通过 netstat -napt 命令查看**
+
+**查看内存：free  free -g(GB)  free -m(MB)**
+
+**硬盘：df   df -h    pidstat -d 3 -p 1057  磁盘占用情况**
+
+**磁盘io: iostat   -xdk 2 3**
+
+**网络io :  ifstat**
+
+**top -Hp pid 进程负载均衡  load average: 0.00, 0.01, 0.05**
+* top 命令是我们在 Linux 下最常用的命令之一，它可以实时显示正在执行进程的 CPU 使用率、内存使用率以及系统负载等信息。其中上半部分显示的是系统的统计信息，下半部分显示的是进程的使用率统计信息。
+*
+</code></pre>
 
                 
 

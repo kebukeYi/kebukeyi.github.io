@@ -211,6 +211,48 @@
 
 <div class="post-preview">
 
+    <a href="/article/JVM调优/">
+        <h2 class="post-title">
+                                 
+            JVM调优
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Jvm实战
+GC Root对象的包括如下几种：
+
+Java虚拟机栈中的引用的对象 ；
+方法区中的类静态属性引用的对象 ；
+方法区中的常量引用的对象 ；
+本地方法栈中JNI的引用的对象。
+
+
+而堆中的对象在正常情况下，一般是通过常量、全局变量、静态变量等间接引用堆中的对象，所以这些可以作为GC Root。
+
+Minor gc是否会导致Stop The World(STW)？
+
+不管什么GC，都......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-08-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#JVM" title="JVM">JVM</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/article/Shell/">
         <h2 class="post-title">
                                  
@@ -388,17 +430,48 @@ Java线程池
         </h3>
         <div class="post-content-preview">
             Linux
-远程拷贝文件命令
-* scp temp.txt 192.168.211.125:/usr/local/server/mq/
-vmstat 是一款指定采样周期和次数的功能性监测工具，我们可以使用它监控进程上下文切换的情况。
 
-vmstat 1 3 命令行代表每秒收集一次性能指标，总共获取 3 次。
 
-procs
-r：等待运行的进程数
-b：处于非中断睡眠状态的进程数
-memory
-s......
+
+文件类型
+属主权限
+属组权限
+其他用户权限
+
+
+
+
+0
+1 2 3
+4 5 6
+7 8 9
+
+
+d 目录
+r w x
+r w x
+r w x
+
+
+- 文件
+r w x
+r - x
+r - x
+
+
+l 链接文档
+r w x
+r w x
+r w x
+
+
+b 装置文件里面的可供储存的接口设备(可随机存取装置)；
+r w x
+r w x
+r w x
+
+
+c 装置文件里面的串行端口设......
         </div>
     </a>
     
@@ -470,33 +543,6 @@ s......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/article/RocketMq/">
-        <h2 class="post-title">
-                                 
-            RocketMq
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            ...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-07-04
-        </p>
-        <div class="tags">
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -538,10 +584,6 @@ s......
     <div class="tags">
         
             
-            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
-            
-        
-            
             <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
             
         
@@ -550,15 +592,19 @@ s......
             
         
             
+            <a href="/tags/#Hashtable ConcurrentHashMap Thread" title="Hashtable ConcurrentHashMap Thread" rel="1">Hashtable ConcurrentHashMap Thread</a>
+            
+        
+            
+            <a href="/tags/#JVM" title="JVM" rel="1">JVM</a>
+            
+        
+            
             <a href="/tags/#I/O" title="I/O" rel="1">I/O</a>
             
         
             
-            <a href="/tags/#Jedis 线程安全 Redis" title="Jedis 线程安全 Redis" rel="1">Jedis 线程安全 Redis</a>
-            
-        
-            
-            <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
+            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
             
         
             
@@ -570,7 +616,15 @@ s......
             
         
             
-            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
+            <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
+            
+        
+            
+            <a href="/tags/#Jedis 线程安全 Redis" title="Jedis 线程安全 Redis" rel="1">Jedis 线程安全 Redis</a>
+            
+        
+            
+            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
             
         
             
@@ -578,7 +632,7 @@ s......
             
         
             
-            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
+            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
             
         
             
@@ -586,7 +640,7 @@ s......
             
         
             
-            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
+            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
             
         
             
@@ -603,10 +657,6 @@ s......
         
             
             <a href="/tags/#计算机 原码 反码 补码 Java" title="计算机 原码 反码 补码 Java" rel="1">计算机 原码 反码 补码 Java</a>
-            
-        
-            
-            <a href="/tags/#Java  内存屏障" title="Java  内存屏障" rel="1">Java  内存屏障</a>
             
         
     </div>
@@ -662,6 +712,10 @@ s......
     <ul>
       
         <li>
+          <a href="/article/JVM调优/">JVM调优</a>
+        </li>
+      
+        <li>
           <a href="/article/Shell/">Shell</a>
         </li>
       
@@ -675,10 +729,6 @@ s......
       
         <li>
           <a href="/article/Kafka/">Kafka</a>
-        </li>
-      
-        <li>
-          <a href="/article/Spring-MVC/">Spring MVC</a>
         </li>
       
     </ul>
@@ -705,7 +755,7 @@ s......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>
