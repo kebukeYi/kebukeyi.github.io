@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -375,24 +375,26 @@ pick  [默认中间节点]</li>
 <li>git push</li>
 </ul>
 </li>
-<li>第一个用户操作<br>
-* git fetch [remote角色名字]github<br>
-* git branch -v<br>
-* git branch -av<br>
-*<br>
-* git checkout -b [localName]sharegit  [remote]sharegit<br>
-* git branch -av<br>
-* vi index.html<br>
-* git add -u<br>
-* git commit -m “git01 add index.html”<br>
-* gitk --all<br>
-* 第一个人并没有提交 goto:sdd56s(第二个人再次push)<br>
-* git push gihub  //报错 不是fast-forwards<br>
-* git fetch github<br>
-* git branch -av<br>
-* git merge gtihub/sharegit //由于两个人操作的是不同的文件 因此会顺利合并<br>
-* vi readme  //检查readme 文件是否被第二个用户所修改<br>
-* git push github   //再次进行推送</li>
+<li>第一个用户操作
+<ul>
+<li>git fetch [remote角色名字]github</li>
+<li>git branch -v</li>
+<li>git branch -av</li>
+<li>git checkout -b [localName]sharegit  [remote]sharegit</li>
+<li>git branch -av</li>
+<li>vi index.html</li>
+<li>git add -u</li>
+<li>git commit -m “git01 add index.html”</li>
+<li>gitk --all</li>
+<li>第一个人并没有提交 goto:sdd56s(第二个人再次push)</li>
+<li>git push gihub  //报错 不是fast-forwards</li>
+<li>git fetch github</li>
+<li>git branch -av</li>
+<li>git merge gtihub/sharegit //由于两个人操作的是不同的文件 因此会顺利合并</li>
+<li>vi readme  //检查readme 文件是否被第二个用户所修改</li>
+<li>git push github   //再次进行推送</li>
+</ul>
+</li>
 </ul>
 <p><strong><strong>不同的人修改了同文件的不同区域如何处理？</strong></strong></p>
 <ul>
@@ -500,10 +502,11 @@ pick  [默认中间节点]</li>
 <li>git reset --hard  b3f390c  //重置之前commit 的值</li>
 <li>git push -f origin [远端分支]sharegit</li>
 </ul>
-<p><strong><strong>禁止向集成环境执行变更历史操作</strong></strong></p>
+<p><strong><strong>解决因为两个仓库有不同的开始点的提交</strong></strong></p>
 <ul>
-<li></li>
+<li>git push origin master allow-unrelated-histories</li>
 </ul>
+<p><strong><strong>禁止向集成环境执行变更历史操作</strong></strong></p>
 <p><strong><strong>master 分支需要回退到 [temp 分支 merge master 分支而形成的节点] 的前一个节点？</strong></strong></p>
 <ul>
 <li>git push -f origin [b3f390c]master</li>

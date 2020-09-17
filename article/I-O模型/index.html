@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -266,8 +266,44 @@ Java中提供的IO有关的API，在文件处理的时候，其实依赖操作�
 <p><img src="./I-O%E6%A8%A1%E5%9E%8B/clipboard6.png" alt=""></p>
 <p>IO多路转接是多了一个select函数，多个进程的IO可以注册到同一个select上，当用户进程调用该select，select会监听所有注册好的IO，如果所有被监听的IO需要的数据都没有准备好时，select调用进程会阻塞。当任意一个IO所需的数据准备好之后，select调用就会返回，然后进程在通过recvfrom来进行数据拷贝。</p>
 <p>这里的IO复用模型，并没有向内核注册信号处理函数，所以，他并不是非阻塞的。进程在发出select后，要等到select监听的所有IO操作中至少有一个需要的数据准备好，才会有返回，并且也需要再次发送请求去进行文件的拷贝。</p>
-<p>用户进程下开启一个线程用来监听所注册的socket,如果所监听的多个socket，有几个发生数据流能立即监听到，然后数据同步拷贝，并且I/O复用有三种模式可选择：select、poll、epoll。<br>
-<a href="https://blog.csdn.net/Monster7559/article/details/97389305" target="_blank" rel="noopener">三种IO复用比较</a></p>
+<p>用户进程下开启一个线程用来监听所注册的socket,如果所监听的多个socket，有几个发生数据流能立即监听到，然后数据同步拷贝，并且I/O复用有三种模式可选择：select、poll、epoll。</p>
+<table>
+<thead>
+<tr>
+<th>概述</th>
+<th>select</th>
+<th>poll</th>
+<th>epoll</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作方式</td>
+<td>遍历</td>
+<td>遍历</td>
+<td>回调</td>
+</tr>
+<tr>
+<td>底层实现</td>
+<td>数组</td>
+<td>链表</td>
+<td>哈希表</td>
+</tr>
+<tr>
+<td>IO效率</td>
+<td>每次调用都进行线性遍历，时间复杂度为O(n)</td>
+<td>每次调用都进行线性遍历，时间复杂度为O(n)</td>
+<td>事件通知方式，每当fd就绪，系统注册的回调函数就会被调用，将就绪fd放到readyList里面，时间复杂度O(1)</td>
+</tr>
+<tr>
+<td>最大连接数</td>
+<td>1024（x86）或2048（x64）</td>
+<td>无上限</td>
+<td>无上限</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://blog.csdn.net/Monster7559/article/details/97389305" target="_blank" rel="noopener">三种IO复用比较</a></p>
 <h2 id="异步io模型">异步I/O模型</h2>
 <h3 id="异步io">异步I/O</h3>
 <blockquote>
