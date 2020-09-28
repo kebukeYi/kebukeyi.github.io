@@ -88,6 +88,8 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#dubbo" title="dubbo">dubbo</a>
+                            
                         </div>
                         <h1>Dubbo</h1>
                         <h2 class="subheading"></h2>
@@ -140,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,7 +212,30 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h1 id="dubbo">Dubbo</h1>
+<h3 id="rpc入门">RPC入门</h3>
+<ul>
+<li>两端建立Socket连接</li>
+<li>携带方法参数与方法名字</li>
+<li>远程执行方法</li>
+<li>计算出结果输入Socket流</li>
+<li>Socket连接关闭</li>
+</ul>
+<p><strong><strong>分析：</strong></strong></p>
+<ol>
+<li>怎样建立Socket连接和保存更有效？（Netty）</li>
+<li>传输的字节数怎样性价比更高？(序列化)</li>
+<li>出现事务方法怎么保证数据一致性？（）</li>
+<li>怎么样高效的调用大量不同的方法？（负载均衡）</li>
+<li>由于网络延迟等原因，导致返回结果丢失怎么办？（消息重传）</li>
+</ol>
+<h3 id="实战">实战</h3>
+<ul>
+<li>可以利用 zookeeper 作为注册中心</li>
+<li>下载官网的 dubbo-admin 执行 mvn clean package 打成jar包运行作为管理控制台（port：7001）</li>
+<li>dubbo怎么解析xml配置文件：DubboBeanDefinitionParser 解析器：容器启动解析文件-&gt; DubboNamespaceHandler 创建各个标签解析器-&gt;</li>
+</ul>
+
                 
 
                 <hr>
@@ -279,7 +304,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#dubbo"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Dubbo</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#rpc入门"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">RPC&#x5165;&#x95E8;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#实战"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">&#x5B9E;&#x6218;</span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
@@ -299,6 +324,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#dubbo" title="dubbo">dubbo</a>
+                        
                     </div>
                 </section>
                 

@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -211,6 +211,87 @@
 
 <div class="post-preview">
 
+    <a href="/article/Spring-Cloud/">
+        <h2 class="post-title">
+                                 
+            Spring Cloud
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Spring Cloud
+
+
+Eureka(服务治理)：服务消费者、服务提供者、注册中心；
+默认开启自我保护机制：某时刻某一个微服务不可用了, Eureka不会立刻清理,依旧会对该微服务的信息进行保存，属于CAP里面的AP分支；可能属于网络阻塞，假死状态；可关闭默认保护机制；
+Zuul:网关服务，用于处理前台请求的负载请求、以及鉴权；基于IO阻塞式的servlet；
+Ribbon:用于负载后......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-07-04
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#cloud" title="cloud">cloud</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/Dubbo/">
+        <h2 class="post-title">
+                                 
+            Dubbo
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Dubbo
+RPC入门
+
+两端建立Socket连接
+携带方法参数与方法名字
+远程执行方法
+计算出结果输入Socket流
+Socket连接关闭
+
+分析：
+
+怎样建立Socket连接和保存更有效？（Netty）
+传输的字节数怎样性价比更高？(序列化)
+出现事务方法怎么保证数据一致性？（）
+怎么样高效的调用大量不同的方法？（负载均衡）
+由于网络延迟等原因，导致返回结果丢失怎么办？（消息重传）
+
+实......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨一 on
+            2020-07-04
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#dubbo" title="dubbo">dubbo</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/article/RocketMq/">
         <h2 class="post-title">
                                  
@@ -274,7 +355,14 @@
             
         </h3>
         <div class="post-content-preview">
-            ...
+            Zookeeper
+zk使用场景
+
+
+分布式协调：这个其实是zk很经典的一个用法，简单来说，就好比，你A系统发送个请求到mq，然后B消息消费之后处理了。那A系统如何知道B系统的处理结果？用zk就可以实现分布式系统之间的协调工作。A系统发送请求之后可以在zk上对某个节点的值注册个监听器，一旦B系统处理完了就修改zk那个节点的值，A立马就可以收到通知，完美解决。
+
+
+分布式锁：对某一个数据连续发......
         </div>
     </a>
     
@@ -283,6 +371,8 @@
             2020-07-04
         </p>
         <div class="tags">
+            
+              <a href="/tags/#zookeeper" title="zookeeper">zookeeper</a>
             
         </div>
     
@@ -503,79 +593,6 @@ synchronized关键字，javac在编译时，会生成对应的monitorenter和mon
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/article/Spring事务/">
-        <h2 class="post-title">
-                                 
-            Spring 事务
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Spring 事务
-
-依赖
-
- 1234567891011121314151617181920212223242526272829&lt;dependency&gt;    &lt;groupId&gt;org.springframework&lt;/groupId&gt;    &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;    &lt;ve......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-06-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional">Spring 事务 Transactional</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/article/docker部署redis-cluster集群/">
-        <h2 class="post-title">
-                                 
-            docker部署redis-cluster集群
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            docker部署redis-cluster集群
-主机环境
-
-阿里云服务器 ECS ，2核4G，系统：Centos_7_05_64
-Redis 5.0.0 以上
-docker 社区版 version 18.09.0
-
-安装docker
-
-安装所需的软件包
-
-  123sudo yum install -y yum-utils \device-mapper-persistent-data \lv......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨一 on
-            2020-06-07
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#docker redis-cluster" title="docker redis-cluster">docker redis-cluster</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -621,11 +638,15 @@ docker 社区版 version 18.09.0
     <div class="tags">
         
             
-            <a href="/tags/#git" title="git" rel="1">git</a>
+            <a href="/tags/#docker" title="docker" rel="1">docker</a>
             
         
             
-            <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
+            <a href="/tags/#dubbo" title="dubbo" rel="1">dubbo</a>
+            
+        
+            
+            <a href="/tags/#git" title="git" rel="1">git</a>
             
         
             
@@ -633,7 +654,7 @@ docker 社区版 version 18.09.0
             
         
             
-            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
+            <a href="/tags/#Java HashMap" title="Java HashMap" rel="1">Java HashMap</a>
             
         
             
@@ -645,6 +666,10 @@ docker 社区版 version 18.09.0
             
         
             
+            <a href="/tags/#内存" title="内存" rel="1">内存</a>
+            
+        
+            
             <a href="/tags/#动态代理  Java" title="动态代理  Java" rel="1">动态代理  Java</a>
             
         
@@ -653,11 +678,31 @@ docker 社区版 version 18.09.0
             
         
             
-            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
+            <a href="/tags/#Java Lambda" title="Java Lambda" rel="1">Java Lambda</a>
             
         
             
             <a href="/tags/#Stream Java" title="Stream Java" rel="1">Stream Java</a>
+            
+        
+            
+            <a href="/tags/#Jvm" title="Jvm" rel="2">Jvm</a>
+            
+        
+            
+            <a href="/tags/#Spring Boot" title="Spring Boot" rel="1">Spring Boot</a>
+            
+        
+            
+            <a href="/tags/#Spring-Cloud-Alibaba" title="Spring-Cloud-Alibaba" rel="1">Spring-Cloud-Alibaba</a>
+            
+        
+            
+            <a href="/tags/#cloud" title="cloud" rel="1">cloud</a>
+            
+        
+            
+            <a href="/tags/#MVC" title="MVC" rel="1">MVC</a>
             
         
             
@@ -669,11 +714,11 @@ docker 社区版 version 18.09.0
             
         
             
-            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
+            <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional" rel="1">Spring 事务 Transactional</a>
             
         
             
-            <a href="/tags/#Spring 事务 Transactional" title="Spring 事务 Transactional" rel="1">Spring 事务 Transactional</a>
+            <a href="/tags/#zookeeper" title="zookeeper" rel="1">zookeeper</a>
             
         
             
@@ -682,6 +727,10 @@ docker 社区版 version 18.09.0
         
             
             <a href="/tags/#锁 并发 分布式 MySql Redis Zookeeper" title="锁 并发 分布式 MySql Redis Zookeeper" rel="1">锁 并发 分布式 MySql Redis Zookeeper</a>
+            
+        
+            
+            <a href="/tags/#MySQL" title="MySQL" rel="1">MySQL</a>
             
         
             
@@ -749,6 +798,14 @@ docker 社区版 version 18.09.0
     <ul>
       
         <li>
+          <a href="/article/Spring-Cloud-Alibaba/">Spring-Cloud-Alibaba</a>
+        </li>
+      
+        <li>
+          <a href="/article/Java之内存泄露与内存溢出/">Java之内存泄露与内存溢出</a>
+        </li>
+      
+        <li>
           <a href="/article/JVM调优/">JVM调优</a>
         </li>
       
@@ -758,14 +815,6 @@ docker 社区版 version 18.09.0
       
         <li>
           <a href="/article/Tomcat的线程池/">Tomcat的线程池</a>
-        </li>
-      
-        <li>
-          <a href="/article/Docker/">Docker</a>
-        </li>
-      
-        <li>
-          <a href="/article/Kafka/">Kafka</a>
         </li>
       
     </ul>
@@ -792,7 +841,7 @@ docker 社区版 version 18.09.0
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">9</span></li></ul>
     </div>
 
         <hr>

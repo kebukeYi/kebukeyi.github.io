@@ -88,6 +88,8 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#docker" title="docker">docker</a>
+                            
                         </div>
                         <h1>Docker</h1>
                         <h2 class="subheading"></h2>
@@ -140,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,7 +212,17 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h1 id="docker">Docker</h1>
+<h2 id="基础操作">基础操作</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
+<ul>
+<li>REPOSITORY: 来自于哪个仓库；</li>
+<li>TAG: 镜像的标签信息，比如 5.7、latest 表示不同的版本信息；</li>
+<li>IMAGE ID: 镜像的 ID, 如果您看到两个 ID 完全相同，那么实际上，它们指向的是同一个镜像，只是标签名称不同罢了；</li>
+<li>CREATED: 镜像最后的更新时间；</li>
+<li>SIZE: 镜像的大小，优秀的镜像一般体积都比较小，这也是我更倾向于使用轻量级的 alpine 版本的原因；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">docker tag 命令功能为指定镜像添加快捷方式</span><br><span class="line"></span><br><span class="line">docker inspect docker.io/mysql:5.7 docker inspect 命令，我们可以获取镜像的详细信息，其中，包括创建者，各层的数字摘要等</span><br><span class="line"></span><br><span class="line">docker inspect -f &#123;&#123;&quot;.Size&quot;&#125;&#125; docker.io/mysql:5.7 获取其中指定的一项内容，可以通过 -f 来指定，如获取镜像大小；</span><br><span class="line"></span><br><span class="line">docker search--help </span><br><span class="line">可以看到 search 支持的子命令有：</span><br><span class="line">-f,--filter filter: 过滤输出的内容；</span><br><span class="line">--limitint：指定搜索内容展示个数;</span><br><span class="line">--no-index: 不截断输出内容；</span><br><span class="line">--no-trunc：不截断输出内容</span><br><span class="line">docker search --filter=is-official=true mysql</span><br><span class="line">docker search --filter=stars=100 mysql</span><br><span class="line"></span><br><span class="line">docker image rm [image]</span><br><span class="line">docker rmi [image]</span><br><span class="line">docker rmi -f docker.io/alpine  强制删除</span><br><span class="line">docker rm 9d59e2278553  先删除容器ID</span><br><span class="line">docker rmi 5cb3aa00f899 再删除镜像ID</span><br><span class="line">docker image prune 清理镜像</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker container commit 基于已有的镜像创建</span><br><span class="line">-a,--author=&quot;&quot;: 作者信息；</span><br><span class="line">-c,--change=[]: 可以在提交的时候执行 Dockerfile 指令，如 CMD、ENTRYPOINT、ENV、EXPOSE、LABEL、ONBUILD、USER、VOLUME、WORIR 等；</span><br><span class="line">-m,--message=&quot;&quot;: 提交信息；</span><br><span class="line">-p,--pause=true: 提交时，暂停容器运行。</span><br><span class="line"></span><br><span class="line">让我将它运行起来，并在其中创建一个 test.txt 文件：</span><br><span class="line">docker run -it docker.io/ubuntu:latest /bin/bashroot@a0a0c8cfec3a:/# touch test.txtroot@a0a0c8cfec3a:/# exit</span><br><span class="line">创建完 test.txt 文件后，需要记住标注的容器 ID: a0a0c8cfec3a, 用它来提交一个新的镜像(PS: 你也可以通过名称来提交镜像，这里只演示通过 ID 的方式)。</span><br><span class="line">执行命令：</span><br><span class="line">docker container commit -m &quot;Added test.txt file&quot; -a &quot;Allen&quot; a0a0c8cfec3a test:0.1</span><br><span class="line">docker images   再次查看本地镜像</span><br><span class="line"></span><br><span class="line">基于 Dockerfile 创建：</span><br><span class="line">编写一个简单的 Dockerfile 文件，它描述了基于 Ubuntu 父镜像，安装 Python3 环境的镜像：</span><br><span class="line">FROM docker.io/ubuntu:latest</span><br><span class="line">LABEL version=&quot;1.0&quot; maintainer=&quot;Allen &lt;weiwosuo@github&gt;&quot;</span><br><span class="line">RUN apt-get update &amp;&amp; \    apt-get install -y python3 &amp;&amp; \    apt-get clean &amp;&amp; \    rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker image build -t python:3 . 通过这个 Dockerfile 文件，来构建新的镜像</span><br><span class="line"></span><br><span class="line">docker save -o python_3.tar python:3 导出tar包镜像</span><br><span class="line">docker load -i python_3.tar  加载导出的tar包</span><br><span class="line"></span><br><span class="line">docker login 登录Docker Hub 上传本地镜像</span><br><span class="line">docker tag python:3 weiwosuoai1991/python:3 我们对其打一个新的标签，前缀与我们新创建的 Docker ID 、仓库名保持一致；</span><br><span class="line">docker images  查看本地标签打包成功</span><br><span class="line">docker push weiwosuoai1991/python:3  开始上传！</span><br></pre></td></tr></table></figure>
                 
 
                 <hr>
@@ -279,7 +291,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Docker</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基础操作"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x57FA;&#x7840;&#x64CD;&#x4F5C;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -299,6 +311,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
+                        
                     </div>
                 </section>
                 

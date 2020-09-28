@@ -7,6 +7,70 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/zookeeper/</loc>
+        <lastmod>2020-09-28T01:55:14.774Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Java%E4%B9%8B%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/</loc>
+        <lastmod>2020-09-28T01:46:49.704Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-Cloud-Alibaba/</loc>
+        <lastmod>2020-09-28T01:31:58.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Dubbo/</loc>
+        <lastmod>2020-09-28T01:29:57.305Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-Boot/</loc>
+        <lastmod>2020-09-28T01:23:42.936Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-MVC/</loc>
+        <lastmod>2020-09-28T00:46:07.106Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Docker/</loc>
+        <lastmod>2020-09-28T00:41:43.473Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/article/Spring-Cloud/</loc>
+        <lastmod>2020-09-28T00:41:39.988Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/Git-%E5%BC%80%E5%8F%91%E6%B5%81%E6%93%8D%E4%BD%9C/</loc>
         <lastmod>2020-09-17T15:50:38.581Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -63,48 +127,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/article/Docker/</loc>
-        <lastmod>2020-07-04T00:28:34.649Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://yoursite.com/article/Kafka/</loc>
         <lastmod>2020-07-04T00:28:27.232Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/Spring-MVC/</loc>
-        <lastmod>2020-07-04T00:28:12.427Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/Spring-Boot/</loc>
-        <lastmod>2020-07-04T00:28:05.675Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/Spring-Cloud/</loc>
-        <lastmod>2020-07-04T00:27:39.383Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/Dubbo/</loc>
-        <lastmod>2020-07-04T00:27:11.307Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -121,14 +145,6 @@
     <url>
         <loc>http://yoursite.com/article/RabbitMq/</loc>
         <lastmod>2020-07-04T00:26:55.236Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/zookeeper/</loc>
-        <lastmod>2020-07-04T00:26:45.300Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

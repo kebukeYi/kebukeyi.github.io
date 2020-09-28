@@ -88,6 +88,8 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#MVC" title="MVC">MVC</a>
+                            
                         </div>
                         <h1>Spring MVC</h1>
                         <h2 class="subheading"></h2>
@@ -140,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,7 +212,28 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h1 id="spring-mvc">Spring MVC</h1>
+<ul>
+<li>请求流程<br>
+1、客户端请求到前端控制器( dispatcher Servlet)<br>
+2、前端控制器( dispatcher Servlet)请求处理器映<br>
+射器( Handler Mapping)<br>
+3、处理器映射器( Handler Mapping)根据ur查找<br>
+相应的处理器( Handler),返回处理器执行链<br>
+( HandlerExecution Chain)给前端控制器<br>
+(Dispatcher Servlet)<br>
+4、前端控制器( Dispatcher Servlet)请求处理器适<br>
+配器( Handler Adapter)<br>
+5、处理器适配器( Handler Adapter)执行处理器<br>
+( Handler),生成 ModelAndview,返回<br>
+ModelAndview给前端控制器( Dispatcher Servlet)<br>
+6、前端控制器( Dispatcher Servlet)请求视图解析<br>
+器( ViewResolver)<br>
+7、视图解析器( ViewResovler)返回视图对象给<br>
+前端控制器( Dispatcher Servlet)<br>
+8、最后渲染视图</li>
+</ul>
+
                 
 
                 <hr>
@@ -279,7 +302,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#spring-mvc"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Spring MVC</span></a></li></ol>
         
         </div>
       </aside>
@@ -299,6 +322,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#MVC" title="MVC">MVC</a>
+                        
                     </div>
                 </section>
                 
